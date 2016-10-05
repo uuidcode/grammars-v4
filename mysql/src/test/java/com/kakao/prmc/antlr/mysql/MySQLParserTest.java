@@ -18,6 +18,8 @@ public class MySQLParserTest {
         checkTableMap("exists2");
         checkTableMap("simple1");
         checkJava("simple1");
+        checkJava("simple2");
+        checkJava("simple3");
     }
 
     private MySQLVisitor getMySQLVisitor(String filename) throws IOException {

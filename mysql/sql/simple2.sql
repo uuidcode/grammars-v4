@@ -1,0 +1,1 @@
+select * from project p, project_episode e

@@ -72,28 +72,6 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
 
     @Override
     public MySQLVisitor visitColumn_name(MySQLParser.Column_nameContext ctx) {
-        if (this.mode == POST) {
-            Map<String, String> table = this.tableMap.get(this.queryIndex);
-            MySQLParser.Table_aliasContext tableAliasContext = ctx.table_alias();
-
-            if (tableAliasContext != null) {
-
-            } else {
-                if (ctx.ASTERISK() != null) {
-                    String column =
-                        table
-                            .entrySet()
-                            .stream()
-                            .map(e -> e.getValue())
-                            .map(e -> "q" + CoreUtil.getJavaClassName(e))
-                            .collect(Collectors.joining(String.format(",%s", CoreUtil.lineSeparator())));
-                    this.list.add(column);
-                }
-            }
-
-            list.add(")");
-        }
-
         return super.visitColumn_name(ctx);
     }
 
@@ -112,8 +90,58 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
         return super.visitColumn_list(ctx);
     }
 
+    public void log(Object object) {
+        System.out.println("###" + object);
+    }
+
     @Override
     public MySQLVisitor visitColumn_list_clause(MySQLParser.Column_list_clauseContext ctx) {
+        if (this.mode == POST) {
+            List<MySQLParser.Column_nameContext> columnNameContextList = ctx.column_name();
+
+            columnNameContextList
+                .stream()
+                .forEach(c -> {
+                    Map<String, String> table = this.tableMap.get(this.queryIndex);
+                    MySQLParser.Table_aliasContext tableAliasContext = c.table_alias();
+                    log(tableAliasContext);
+                    log(c.getText());
+                    log(c.getClass());
+
+                    if (tableAliasContext != null) {
+                        String alias = tableAliasContext.getText();
+
+                        log(alias);
+
+                        if (c.ASTERISK() != null) {
+                            String column =
+                                table
+                                    .entrySet()
+                                    .stream()
+                                    .filter(e -> e.getKey().equals(alias))
+                                    .map(e -> e.getValue())
+                                    .map(e -> "q" + CoreUtil.getJavaClassName(e))
+                                    .collect(Collectors.joining(String.format(",%s", CoreUtil.lineSeparator())));
+                            this.list.add(column);
+                        }
+                    } else {
+                        if (c.ASTERISK() != null) {
+                            String column =
+                                table
+                                    .entrySet()
+                                    .stream()
+                                    .map(e -> e.getValue())
+                                    .map(e -> "q" + CoreUtil.getJavaClassName(e))
+                                    .collect(Collectors.joining(String.format(",%s", CoreUtil.lineSeparator())));
+                            this.list.add(column);
+                        }
+                    }
+                });
+
+
+            list.add(")");
+        }
+
         return super.visitColumn_list_clause(ctx);
     }
 
@@ -141,7 +169,7 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
                 .stream()
                 .map(entry -> entry.getValue())
                 .map(name -> String.format(".from(%s)", "q" + CoreUtil.getJavaClassName(name)))
-                .collect(Collectors.joining(String.format(",%s", CoreUtil.lineSeparator())));
+                .collect(Collectors.joining(CoreUtil.lineSeparator()));
 
             this.list.add(from);
         }
@@ -154,8 +182,46 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
         return super.visitSelect_key(ctx);
     }
 
+    private String getPath(MySQLParser.Column_nameContext context) {
+        Map<String, String> table = this.tableMap.get(this.queryIndex);
+        MySQLParser.Table_aliasContext tableAliasContext = context.table_alias();
+        String tableName = table.get(tableAliasContext.getText());
+        return String.format("q%s.%s", tableName, CoreUtil.getJavaFieldName(context.getText()));
+    }
+
     @Override
     public MySQLVisitor visitWhere_clause(MySQLParser.Where_clauseContext ctx) {
+        if (this.mode == POST) {
+            MySQLParser.ExpressionContext expression = ctx.expression();
+            List<MySQLParser.Simple_expressionContext> simpleExpressionContextList = expression.simple_expression();
+            simpleExpressionContextList
+                .stream()
+                .forEach(
+                e -> {
+                    Optional.ofNullable(e.left_element().element().column_name()).ifPresent(
+                        c -> {
+                            Map<String, String> table = this.tableMap.get(this.queryIndex);
+                            MySQLParser.Table_aliasContext tableAliasContext = c.table_alias();
+
+                            MySQLParser.Column_nameContext columnNameContext = e.right_element().element().column_name();
+
+
+                            if (tableAliasContext != null) {
+                                String op = "";
+
+                                if (e.relational_op() != null) {
+                                    op = "eq";
+                                }
+
+                                this.list.add(String.format(".where(%s.%s(q%s))", getPath(c), op, getPath(e.right_element().element().column_name())));
+                            } else {
+
+                            }
+                        }
+                    );
+                });
+        }
+
         return super.visitWhere_clause(ctx);
     }
 
