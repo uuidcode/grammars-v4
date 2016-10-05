@@ -25,7 +25,7 @@ table_alias
    ;
 
 column_name
-   : ( table_alias DOT )? ASTERISK
+   : ASTERISK
    | table_alias ALL_FIELDS
    | ( table_alias DOT )? ID
    | USER_VAR ( column_name_alias )?

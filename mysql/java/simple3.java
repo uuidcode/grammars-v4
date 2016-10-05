@@ -5,3 +5,8 @@ qProjectEpisode
 .from(qProject)
 .from(qProjectEpisode)
 .where(qProjectEpisode.projectId.eq(qProject.projectId))
+.where(qProjectEpisode.projectId.ne(qProject.projectId))
+.where(qProjectEpisode.projectId.gt(qProject.projectId))
+.where(qProjectEpisode.projectId.goe(qProject.projectId))
+.where(qProjectEpisode.projectId.lt(qProject.projectId))
+.where(qProjectEpisode.projectId.loe(qProject.projectId))

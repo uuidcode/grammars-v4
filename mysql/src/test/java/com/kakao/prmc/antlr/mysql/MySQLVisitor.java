@@ -3,16 +3,13 @@ package com.kakao.prmc.antlr.mysql;
 import static com.kakao.prmc.antlr.mysql.MySQLVisitor.Mode.POST;
 import static com.kakao.prmc.antlr.mysql.MySQLVisitor.Mode.PRE;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import com.kakao.prmc.core.utility.CoreUtil;
 
 public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
+    private Map<String, String> opMap = new HashMap<>();
     private Map<Integer, Map<String, String>> tableMap = new LinkedHashMap<>();
     private Integer queryIndex = 0;
     private List<String> list = new ArrayList<>();
@@ -24,7 +21,12 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
 
     public MySQLVisitor(Mode mode) {
         this.mode = mode;
-
+        opMap.put("=", "eq");
+        opMap.put("!=", "ne");
+        opMap.put(">=", "goe");
+        opMap.put(">", "gt");
+        opMap.put("<=", "loe");
+        opMap.put("<", "lt");
     }
 
     public MySQLVisitor setTableMap(Map<Integer, Map<String, String>> tableMap) {
@@ -197,13 +199,7 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
                     Optional.ofNullable(e.left_element().element().column_name()).ifPresent(
                         leftColumn -> {
                             MySQLParser.Column_nameContext rightColumn = e.right_element().element().column_name();
-                            String op = "";
-
-                            if (e.relational_op() != null) {
-                                op = "eq";
-                            }
-
-                            this.list.add(String.format(".where(%s.%s(%s))", getPath(leftColumn), op, getPath(rightColumn)));
+                            this.list.add(String.format(".where(%s.%s(%s))", getPath(leftColumn), this.opMap.get(e.relational_op().getText()), getPath(rightColumn)));
                         }
                     );
                 });
