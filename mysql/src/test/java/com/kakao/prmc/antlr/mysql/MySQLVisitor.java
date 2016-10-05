@@ -1,15 +1,43 @@
 package com.kakao.prmc.antlr.mysql;
 
+import static com.kakao.prmc.antlr.mysql.MySQLVisitor.Mode.POST;
+import static com.kakao.prmc.antlr.mysql.MySQLVisitor.Mode.PRE;
+
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
+import com.kakao.prmc.core.utility.CoreUtil;
 
 public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
     private Map<Integer, Map<String, String>> tableMap = new LinkedHashMap<>();
     private Integer queryIndex = 0;
+    private List<String> list = new ArrayList<>();
+    private Mode mode;
+
+    public static enum Mode {
+        PRE, POST
+    }
+
+    public MySQLVisitor(Mode mode) {
+        this.mode = mode;
+
+    }
+
+    public MySQLVisitor setTableMap(Map<Integer, Map<String, String>> tableMap) {
+        this.tableMap = tableMap;
+        return this;
+    }
 
     public Map<Integer, Map<String, String>> getTableMap() {
         return tableMap;
+    }
+
+    public String getSource() {
+        return CoreUtil.joining(this.list, CoreUtil.lineSeparator());
     }
 
     @Override
@@ -24,6 +52,11 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
 
     @Override
     public MySQLVisitor visitSelect_clause(MySQLParser.Select_clauseContext ctx) {
+        if (this.mode == POST) {
+            list.add("this.queryService");
+            list.add(".select(");
+        }
+
         return super.visitSelect_clause(ctx);
     }
 
@@ -39,6 +72,28 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
 
     @Override
     public MySQLVisitor visitColumn_name(MySQLParser.Column_nameContext ctx) {
+        if (this.mode == POST) {
+            Map<String, String> table = this.tableMap.get(this.queryIndex);
+            MySQLParser.Table_aliasContext tableAliasContext = ctx.table_alias();
+
+            if (tableAliasContext != null) {
+
+            } else {
+                if (ctx.ASTERISK() != null) {
+                    String column =
+                        table
+                            .entrySet()
+                            .stream()
+                            .map(e -> e.getValue())
+                            .map(e -> "q" + CoreUtil.getJavaClassName(e))
+                            .collect(Collectors.joining(String.format(",%s", CoreUtil.lineSeparator())));
+                    this.list.add(column);
+                }
+            }
+
+            list.add(")");
+        }
+
         return super.visitColumn_name(ctx);
     }
 
@@ -64,6 +119,33 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
 
     @Override
     public MySQLVisitor visitFrom_clause(MySQLParser.From_clauseContext ctx) {
+        if (this.mode == PRE) {
+            MySQLParser.Table_referencesContext tableReferencesContext = ctx.table_references();
+            tableReferencesContext
+                .table_reference()
+                .stream()
+                .forEach(c -> {
+                    Map<String, String> map = Optional.ofNullable(this.tableMap.get(this.queryIndex)).orElse(new LinkedHashMap<>());
+                    String tableName = c.table_atom().table_name().getText();
+                    String tableAlias = Optional.ofNullable(c.table_atom().table_alias()).map(ac -> ac.getText()).orElse(tableName);
+                    map.put(tableAlias, tableName);
+                    this.tableMap.put(this.queryIndex, map);
+                    this.list.add("q" + CoreUtil.getJavaClassName(tableName));
+                });
+        }
+
+        if (this.mode == POST) {
+            String from = this.tableMap
+                .get(this.queryIndex)
+                .entrySet()
+                .stream()
+                .map(entry -> entry.getValue())
+                .map(name -> String.format(".from(%s)", "q" + CoreUtil.getJavaClassName(name)))
+                .collect(Collectors.joining(String.format(",%s", CoreUtil.lineSeparator())));
+
+            this.list.add(from);
+        }
+
         return super.visitFrom_clause(ctx);
     }
 
@@ -137,20 +219,6 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
         return super.visitTable_reference(ctx);
     }
 
-    @Override
-    public MySQLVisitor visitTable_factor1(MySQLParser.Table_factor1Context ctx) {
-        return super.visitTable_factor1(ctx);
-    }
-
-    @Override
-    public MySQLVisitor visitTable_factor2(MySQLParser.Table_factor2Context ctx) {
-        return super.visitTable_factor2(ctx);
-    }
-
-    @Override
-    public MySQLVisitor visitTable_factor3(MySQLParser.Table_factor3Context ctx) {
-        return super.visitTable_factor3(ctx);
-    }
 
     @Override
     public MySQLVisitor visitTable_factor4(MySQLParser.Table_factor4Context ctx) {
@@ -159,11 +227,6 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
 
     @Override
     public MySQLVisitor visitTable_atom(MySQLParser.Table_atomContext ctx) {
-        Map<String, String> map = Optional.ofNullable(this.tableMap.get(this.queryIndex)).orElse(new LinkedHashMap<>());
-        String tableName = ctx.table_name().getText();
-        String tableAlias = Optional.ofNullable(ctx.table_alias()).map(c -> c.getText()).orElse(tableName);
-        map.put(tableAlias, tableName);
-        this.tableMap.put(this.queryIndex, map);
         return super.visitTable_atom(ctx);
     }
 

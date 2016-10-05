@@ -258,36 +258,6 @@ public interface MySQLParserListener extends ParseTreeListener {
 	 */
 	void exitTable_reference(MySQLParser.Table_referenceContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link MySQLParser#table_factor1}.
-	 * @param ctx the parse tree
-	 */
-	void enterTable_factor1(MySQLParser.Table_factor1Context ctx);
-	/**
-	 * Exit a parse tree produced by {@link MySQLParser#table_factor1}.
-	 * @param ctx the parse tree
-	 */
-	void exitTable_factor1(MySQLParser.Table_factor1Context ctx);
-	/**
-	 * Enter a parse tree produced by {@link MySQLParser#table_factor2}.
-	 * @param ctx the parse tree
-	 */
-	void enterTable_factor2(MySQLParser.Table_factor2Context ctx);
-	/**
-	 * Exit a parse tree produced by {@link MySQLParser#table_factor2}.
-	 * @param ctx the parse tree
-	 */
-	void exitTable_factor2(MySQLParser.Table_factor2Context ctx);
-	/**
-	 * Enter a parse tree produced by {@link MySQLParser#table_factor3}.
-	 * @param ctx the parse tree
-	 */
-	void enterTable_factor3(MySQLParser.Table_factor3Context ctx);
-	/**
-	 * Exit a parse tree produced by {@link MySQLParser#table_factor3}.
-	 * @param ctx the parse tree
-	 */
-	void exitTable_factor3(MySQLParser.Table_factor3Context ctx);
-	/**
 	 * Enter a parse tree produced by {@link MySQLParser#table_factor4}.
 	 * @param ctx the parse tree
 	 */

@@ -13,7 +13,7 @@ schema_name
    ;
 
 select_clause
-   : SELECT column_list_clause ( FROM table_references )? ( where_clause )?
+   : SELECT column_list_clause ( from_clause )? ( where_clause )?
    ;
 
 table_name
@@ -45,7 +45,7 @@ column_list_clause
    ;
 
 from_clause
-   : FROM table_name ( COMMA table_name )*
+   :  FROM table_references
    ;
 
 select_key
@@ -98,24 +98,25 @@ simple_expression
 
 table_references
    : table_reference ( ( COMMA table_reference ) | join_clause )*
+
    ;
 
 table_reference
-   : table_factor1 | table_atom
+   : table_atom
    ;
 
-table_factor1
-   : table_factor2 ( ( INNER | CROSS )? JOIN table_atom ( join_condition )? )?
-   ;
-
-table_factor2
-   : table_factor3 ( STRAIGHT_JOIN table_atom ( ON expression )? )?
-   ;
-
-table_factor3
-   : table_factor4 ( ( LEFT | RIGHT ) ( OUTER )? JOIN table_factor4 join_condition )?
-   ;
-
+//table_factor1
+//   : table_factor2 ( ( INNER | CROSS )? JOIN table_atom ( join_condition )? )?
+//   ;
+//
+//table_factor2
+//   : table_factor3 ( STRAIGHT_JOIN table_atom ( ON expression )? )?
+//   ;
+//
+//table_factor3
+//   : table_factor4 ( ( LEFT | RIGHT ) ( OUTER )? JOIN table_factor4 join_condition )?
+//   ;
+//
 table_factor4
    : table_atom ( NATURAL ( ( LEFT | RIGHT ) ( OUTER )? )? JOIN table_atom )?
    ;

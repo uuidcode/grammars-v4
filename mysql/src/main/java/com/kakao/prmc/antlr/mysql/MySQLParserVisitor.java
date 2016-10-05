@@ -161,24 +161,6 @@ public interface MySQLParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitTable_reference(MySQLParser.Table_referenceContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MySQLParser#table_factor1}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitTable_factor1(MySQLParser.Table_factor1Context ctx);
-	/**
-	 * Visit a parse tree produced by {@link MySQLParser#table_factor2}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitTable_factor2(MySQLParser.Table_factor2Context ctx);
-	/**
-	 * Visit a parse tree produced by {@link MySQLParser#table_factor3}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitTable_factor3(MySQLParser.Table_factor3Context ctx);
-	/**
 	 * Visit a parse tree produced by {@link MySQLParser#table_factor4}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
