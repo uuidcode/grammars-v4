@@ -10,6 +10,71 @@
 		<version>1.0-SNAPSHOT</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
+
+	<properties>
+		<antlr4.version>4.5.3</antlr4.version>
+		<core.version>3.3.6</core.version>
+	</properties>
+
+	<repositories>
+		<repository>
+			<id>daum-content-repositories</id>
+			<name>Daum Development Repository</name>
+			<url>http://maven.daumcorp.com/content/repositories/daum</url>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</releases>
+		</repository>
+		<repository>
+			<id>daum-enterdev</id>
+			<name>Daum Entertainment Service Development Repository</name>
+			<url>http://maven.daumcorp.com/content/repositories/daum-enterdev</url>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</releases>
+		</repository>
+		<repository>
+			<id>daum-enterdev-snapshots</id>
+			<name>Daum Entertainment Service Development Repository</name>
+			<url>http://maven.daumcorp.com/content/repositories/daum-enterdev-snapshots</url>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</releases>
+		</repository>
+	</repositories>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.antlr</groupId>
+			<artifactId>antlr4-runtime</artifactId>
+			<version>${antlr4.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.antlr</groupId>
+			<artifactId>antlr4</artifactId>
+			<version>${antlr4.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.kakao.prmc</groupId>
+			<artifactId>core</artifactId>
+			<version>${core.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.assertj</groupId>
+			<artifactId>assertj-core</artifactId>
+			<version>3.5.2</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 	<build>
 		<plugins>
 			<plugin>
@@ -17,10 +82,14 @@
 				<artifactId>antlr4-maven-plugin</artifactId>
 				<version>${antlr.version}</version>
 				<configuration>
+					<outputDirectory>${basedir}/src/main/java/com/kakao/prmc/antlr/mysql</outputDirectory>
 					<sourceDirectory>${basedir}</sourceDirectory>
-					<grammars>MySQL.g4</grammars>
 					<visitor>true</visitor>
 					<listener>true</listener>
+                    <arguments>
+                        <argument>-package</argument>
+                        <argument>com.kakao.prmc.antlr.mysql</argument>
+                    </arguments>
 				</configuration>
 				<executions>
 					<execution>

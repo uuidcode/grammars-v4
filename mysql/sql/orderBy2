@@ -1,0 +1,10 @@
+this.queryService
+.select(
+qProject,
+qProjectEpisode
+)
+.from(qProject)
+.from(qProjectEpisode)
+.where(qProjectEpisode.projectId.eq(qProject.projectId))
+.orderBy(qProject.regDatetime.desc())
+.orderBy(qProjectEpisode.regDatetime.asc())

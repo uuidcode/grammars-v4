@@ -1,0 +1,8 @@
+this.queryService
+.select(
+qProject.supportStatus,
+qProject.count()
+)
+.from(qProject)
+.groupBy(qProject.supportStatus)
+.orderBy(qProject.count().desc())

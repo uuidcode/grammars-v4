@@ -1,0 +1,13 @@
+this.queryService
+.select(
+qProject,
+qProjectEpisode
+)
+.from(qProject)
+.from(qProjectEpisode)
+.where(qProject.projectId.gt(1234))
+.where(qProject.projectId.lt(1234))
+.where(qProject.projectId.goe(1234))
+.where(qProject.projectId.loe(1234))
+.where(qProject.projectId.ne(1234))
+.where(qProjectEpisode.projectId.eq(qProject.projectId))
