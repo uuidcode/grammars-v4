@@ -104,16 +104,10 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
                 .forEach(c -> {
                     Map<String, String> table = this.tableMap.get(this.queryIndex);
                     MySQLParser.Table_aliasContext tableAliasContext = c.table_alias();
-                    log(tableAliasContext);
-                    log(c.getText());
-                    log(c.getClass());
 
                     if (tableAliasContext != null) {
                         String alias = tableAliasContext.getText();
-
-                        log(alias);
-
-                        if (c.ASTERISK() != null) {
+                        if (c.ALL_FIELDS() != null) {
                             String column =
                                 table
                                     .entrySet()
@@ -186,7 +180,8 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
         Map<String, String> table = this.tableMap.get(this.queryIndex);
         MySQLParser.Table_aliasContext tableAliasContext = context.table_alias();
         String tableName = table.get(tableAliasContext.getText());
-        return String.format("q%s.%s", tableName, CoreUtil.getJavaFieldName(context.getText()));
+        String columnName = context.ID().getText();
+        return String.format("q%s.%s", CoreUtil.getJavaClassName(tableName), CoreUtil.getJavaFieldName(columnName));
     }
 
     @Override
@@ -194,29 +189,21 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
         if (this.mode == POST) {
             MySQLParser.ExpressionContext expression = ctx.expression();
             List<MySQLParser.Simple_expressionContext> simpleExpressionContextList = expression.simple_expression();
+
             simpleExpressionContextList
                 .stream()
                 .forEach(
                 e -> {
                     Optional.ofNullable(e.left_element().element().column_name()).ifPresent(
-                        c -> {
-                            Map<String, String> table = this.tableMap.get(this.queryIndex);
-                            MySQLParser.Table_aliasContext tableAliasContext = c.table_alias();
+                        leftColumn -> {
+                            MySQLParser.Column_nameContext rightColumn = e.right_element().element().column_name();
+                            String op = "";
 
-                            MySQLParser.Column_nameContext columnNameContext = e.right_element().element().column_name();
-
-
-                            if (tableAliasContext != null) {
-                                String op = "";
-
-                                if (e.relational_op() != null) {
-                                    op = "eq";
-                                }
-
-                                this.list.add(String.format(".where(%s.%s(q%s))", getPath(c), op, getPath(e.right_element().element().column_name())));
-                            } else {
-
+                            if (e.relational_op() != null) {
+                                op = "eq";
                             }
+
+                            this.list.add(String.format(".where(%s.%s(%s))", getPath(leftColumn), op, getPath(rightColumn)));
                         }
                     );
                 });
