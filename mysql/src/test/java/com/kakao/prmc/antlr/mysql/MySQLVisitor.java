@@ -20,12 +20,14 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
     private Integer queryIndex = 0;
     private List<String> list = new ArrayList<>();
     private Mode mode;
-    private boolean isExists = false;
-    private boolean isNotExists = false;
-    private boolean isIn = false;
+    private SubQueryType subQueryType;
 
     public enum Mode {
         PRE, POST
+    }
+
+    public enum SubQueryType {
+        EXISTS, NOT_EXISTS, IN
     }
 
     public enum WhereType {
@@ -486,42 +488,36 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
 
     @Override
     public MySQLVisitor visitExists(MySQLParser.ExistsContext ctx) {
-        this.isExists = true;
+        this.subQueryType = SubQueryType.EXISTS;
         this.list.add(".where(");
         return super.visitExists(ctx);
     }
 
     @Override
     public MySQLVisitor visitNotExists(MySQLParser.NotExistsContext ctx) {
-        this.isNotExists = true;
+        this.subQueryType = SubQueryType.NOT_EXISTS;
         this.list.add(".where(");
         return super.visitNotExists(ctx);
     }
 
     @Override
     public MySQLVisitor visitInSubquery(MySQLParser.InSubqueryContext ctx) {
-        this.isIn = true;
+        this.subQueryType = SubQueryType.IN;
         this.list.add(String.format(".where(%s.in(", this.getPath(ctx.element().columnName())));
         return super.visitInSubquery(ctx);
     }
 
     @Override
     public MySQLVisitor visitSubqueryEnd(MySQLParser.SubqueryEndContext ctx) {
-        if (this.isNotExists) {
+        if (this.subQueryType == SubQueryType.NOT_EXISTS) {
             this.list.add(".notExists())");
-            this.isNotExists = false;
-        }
-
-        if (this.isExists) {
+        } else if (this.subQueryType == SubQueryType.EXISTS) {
             this.list.add(".exists())");
-            this.isExists = false;
-        }
-
-        if (this.isIn) {
+        } else if (this.subQueryType == SubQueryType.IN) {
             this.list.add(")");
-            this.isIn = false;
         }
 
+        this.subQueryType = null;
         return super.visitSubqueryEnd(ctx);
     }
 }

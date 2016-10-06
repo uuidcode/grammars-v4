@@ -1,7 +1,7 @@
 package com.kakao.prmc.antlr.mysql;
 
 public class Table {
-    public static enum Type {
+    public enum Type {
         JOIN, LEFT_JOIN
     }
 
