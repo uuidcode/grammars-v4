@@ -15,10 +15,12 @@ import com.kakao.prmc.core.utility.CoreUtil;
 
 public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
     private final static String NEW_LINE = "\r\n";
+
     private Map<String, String> opMap = new HashMap<>();
     private Map<Integer, Map<String, Table>> indexTableMap = new LinkedHashMap<>();
-    private Integer queryIndex = 0;
     private List<String> list = new ArrayList<>();
+
+    private Integer queryIndex = 0;
     private Mode mode;
     private SubQueryType subQueryType;
 
