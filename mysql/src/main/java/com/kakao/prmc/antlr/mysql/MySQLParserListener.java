@@ -348,6 +348,16 @@ public interface MySQLParserListener extends ParseTreeListener {
 	 */
 	void exitTable_factor4(MySQLParser.Table_factor4Context ctx);
 	/**
+	 * Enter a parse tree produced by {@link MySQLParser#leftjoin_table_atom}.
+	 * @param ctx the parse tree
+	 */
+	void enterLeftjoin_table_atom(MySQLParser.Leftjoin_table_atomContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MySQLParser#leftjoin_table_atom}.
+	 * @param ctx the parse tree
+	 */
+	void exitLeftjoin_table_atom(MySQLParser.Leftjoin_table_atomContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link MySQLParser#table_atom}.
 	 * @param ctx the parse tree
 	 */

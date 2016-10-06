@@ -215,6 +215,12 @@ public interface MySQLParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitTable_factor4(MySQLParser.Table_factor4Context ctx);
 	/**
+	 * Visit a parse tree produced by {@link MySQLParser#leftjoin_table_atom}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLeftjoin_table_atom(MySQLParser.Leftjoin_table_atomContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link MySQLParser#table_atom}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

@@ -424,6 +424,18 @@ public class MySQLParserBaseListener implements MySQLParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterLeftjoin_table_atom(MySQLParser.Leftjoin_table_atomContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLeftjoin_table_atom(MySQLParser.Leftjoin_table_atomContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterTable_atom(MySQLParser.Table_atomContext ctx) { }
 	/**
 	 * {@inheritDoc}

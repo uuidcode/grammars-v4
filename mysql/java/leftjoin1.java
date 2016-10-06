@@ -1,0 +1,10 @@
+this.queryService
+.select(
+qCategory,
+qProjectCategoryMap
+)
+.from(qCategory)
+.leftJoin(qProjectCategoryMap)
+.on(qProjectCategoryMap.categoryId.eq(qCategory.categoryId))
+.on(qProjectCategoryMap.categoryId.eq(qCategory.categoryId))
+.where(qCategory.status.eq("SERVICE"))

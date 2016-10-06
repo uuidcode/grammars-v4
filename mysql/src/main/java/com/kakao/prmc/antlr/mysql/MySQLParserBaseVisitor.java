@@ -255,6 +255,13 @@ public class MySQLParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> imple
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitLeftjoin_table_atom(MySQLParser.Leftjoin_table_atomContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitTable_atom(MySQLParser.Table_atomContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}

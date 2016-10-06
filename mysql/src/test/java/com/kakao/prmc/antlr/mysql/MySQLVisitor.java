@@ -21,10 +21,24 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
     private List<String> list = new ArrayList<>();
     private Mode mode;
     private boolean isExists = false;
-    private Integer columnIndex = 0;
+    private Integer joinConditionIndex = 0;
 
-    public static enum Mode {
+    public enum Mode {
         PRE, POST
+    }
+
+    public enum WhereType {
+        WHERE("where"), ON("on");
+
+        private String keyword;
+
+        public String getKeyword() {
+            return this.keyword;
+        }
+
+        WhereType(String keyword) {
+            this.keyword = keyword;
+        }
     }
 
     public MySQLVisitor(Mode mode) {
@@ -108,7 +122,6 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
 
     @Override
     public MySQLVisitor visitColumn_list_clause(MySQLParser.Column_list_clauseContext ctx) {
-        this.columnIndex = 0;
         List<String> columnList = new ArrayList<>();
 
         if (this.mode == POST) {
@@ -202,7 +215,7 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
         if (context.INT() != null) {
             return context.INT().getText();
         } else if (context.STRING() != null) {
-            return String.format("\"%s\"", context.STRING().getText());
+            return String.format("%s", context.STRING().getText().replaceAll("'", "\""));
         }
 
         Map<String, String> table = this.tableMap.get(this.queryIndex);
@@ -244,39 +257,49 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
     @Override
     public MySQLVisitor visitWhere_clause(MySQLParser.Where_clauseContext ctx) {
         if (this.mode == POST) {
-            MySQLParser.ExpressionContext expression = ctx.expression();
-            List<MySQLParser.Simple_expressionContext> simpleExpressionContextList = expression.simple_expression();
-
-            simpleExpressionContextList
-                .stream()
-                .forEach(
-                e -> {
-                    if (e.EXISTS() != null) {
-                        this.list.add(".where(");
-                        this.isExists = true;
-                    } else if (e.in_clause() != null) {
-                        this.list.add(String.format(".where(%s.in%s)", this.getPath(e.element().column_name()), e.in_clause().getText().replaceAll("'", "\"")));
-                    } else {
-                        MySQLParser.Left_elementContext left_elementContext = e.left_element();
-                        MySQLParser.Column_nameContext leftColumn = left_elementContext.element().column_name();
-
-                        if (leftColumn != null) {
-                            MySQLParser.Column_nameContext rightColumn = e.right_element().element().column_name();
-                            String leftPath = getPath(leftColumn);
-                            String relationOp = this.opMap.get(e.relational_op().getText());
-                            String rightPath = getPath(rightColumn);
-                            this.list.add(String.format(".where(%s.%s(%s))", leftPath, relationOp, rightPath));
-                        }
-
-                        if (this.isExists) {
-                            this.list.add(".exists())");
-                            this.isExists = false;
-                        }
-                    }
-                });
+            this.processWhere(WhereType.WHERE, ctx.expression());
         }
 
         return super.visitWhere_clause(ctx);
+    }
+
+    private void processWhere(WhereType whereType, MySQLParser.ExpressionContext expression) {
+        List<MySQLParser.Simple_expressionContext> simpleExpressionContextList =
+            expression.simple_expression();
+
+        this.joinConditionIndex = 0;
+
+        String keyword = whereType.getKeyword();
+        simpleExpressionContextList
+            .stream()
+            .forEach(
+            e -> {
+                if (e.EXISTS() != null) {
+                    this.list.add(String.format(".%s(", keyword));
+                    this.isExists = true;
+                    this.joinConditionIndex++;
+                } else if (e.in_clause() != null) {
+                    this.list.add(String.format(".%s(%s.in%s)", keyword, this.getPath(e.element().column_name()), e.in_clause().getText().replaceAll("'", "\"")));
+                    this.joinConditionIndex++;
+                } else {
+                    MySQLParser.Left_elementContext left_elementContext = e.left_element();
+                    MySQLParser.Column_nameContext leftColumn = left_elementContext.element().column_name();
+
+                    if (leftColumn != null) {
+                        MySQLParser.Column_nameContext rightColumn = e.right_element().element().column_name();
+                        String leftPath = getPath(leftColumn);
+                        String relationOp = this.opMap.get(e.relational_op().getText());
+                        String rightPath = getPath(rightColumn);
+                        this.list.add(String.format(".%s(%s.%s(%s))", keyword, leftPath, relationOp, rightPath));
+                    }
+
+                    if (this.isExists) {
+                        this.list.add(".exists())");
+                        this.isExists = false;
+                    }
+                    this.joinConditionIndex++;
+                }
+            });
     }
 
     @Override
@@ -352,6 +375,29 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
 
     @Override
     public MySQLVisitor visitJoin_clause(MySQLParser.Join_clauseContext ctx) {
+        MySQLParser.Table_atomContext tableAtomContext = ctx.leftjoin_table_atom().table_atom();
+
+        if (this.mode == PRE) {
+            if (ctx.LEFT() != null) {
+                Map<String, String> map = Optional.ofNullable(this.tableMap.get(this.queryIndex)).orElse(new LinkedHashMap<>());
+                String tableName = tableAtomContext.table_name().getText();
+                String tableAlias = Optional.ofNullable(tableAtomContext.table_alias()).map(a -> a.getText()).orElse(tableName);
+                map.put(tableAlias, tableName);
+            }
+        } else if (this.mode == POST) {
+            if (ctx.LEFT() != null) {
+                String tableName = tableAtomContext.table_name().getText();
+                this.list.add(String.format(".leftJoin(q%s)", CoreUtil.getJavaClassName(tableName)));
+            }
+
+            if (ctx.join_condition() != null) {
+                ctx.join_condition()
+                    .expression()
+                    .stream()
+                    .forEach(e -> this.processWhere(WhereType.ON, e));
+            }
+        }
+
         return super.visitJoin_clause(ctx);
     }
 

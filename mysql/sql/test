@@ -1,6 +1,0 @@
-this.queryService
-.select(
-qKeywordMap
-)
-.from(qKeywordMap)
-.where(qKeywordMap.keyword1.eq("sdf"))
