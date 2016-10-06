@@ -16,11 +16,13 @@ import com.kakao.prmc.core.utility.CoreUtil;
 public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
     private final static String NEW_LINE = "\r\n";
     private Map<String, String> opMap = new HashMap<>();
-    private Map<Integer, Map<String, Table>> tableMap = new LinkedHashMap<>();
+    private Map<Integer, Map<String, Table>> indexTableMap = new LinkedHashMap<>();
+    private Map<Integer, SubQuery> indexSubqueryMap = new LinkedHashMap<>();
     private Integer queryIndex = 0;
     private List<String> list = new ArrayList<>();
     private Mode mode;
     private boolean isExists = false;
+    private boolean isNotExists = false;
 
     public enum Mode {
         PRE, POST
@@ -50,13 +52,13 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
         opMap.put("<", "lt");
     }
 
-    public MySQLVisitor setTableMap(Map<Integer, Map<String, Table>> tableMap) {
-        this.tableMap = tableMap;
+    public MySQLVisitor setIndexTableMap(Map<Integer, Map<String, Table>> indexTableMap) {
+        this.indexTableMap = indexTableMap;
         return this;
     }
 
-    public Map<Integer, Map<String, Table>> getTableMap() {
-        return tableMap;
+    public Map<Integer, Map<String, Table>> getIndexTableMap() {
+        return indexTableMap;
     }
 
     public String getSource() {
@@ -75,8 +77,6 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
 
     @Override
     public MySQLVisitor visitSelectClause(MySQLParser.SelectClauseContext ctx) {
-        this.queryIndex++;
-
         if (this.mode == POST) {
             list.add("this.queryService");
             list.add(".select(");
@@ -119,6 +119,10 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
         System.out.println("###" + object);
     }
 
+    public void log(String title, Object object) {
+        log(title + ":" + CoreUtil.toJson(object));
+    }
+
     @Override
     public MySQLVisitor visitColumnListClause(MySQLParser.ColumnListClauseContext ctx) {
         List<String> columnList = new ArrayList<>();
@@ -129,7 +133,7 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
             columnNameContextList
                 .stream()
                 .forEach(c -> {
-                    Map<String, Table> table = this.tableMap.get(this.queryIndex);
+                    Map<String, Table> table = this.indexTableMap.get(this.queryIndex);
                     MySQLParser.TableAliasContext tableAliasContext = c.tableAlias();
 
                     if (tableAliasContext != null) {
@@ -159,7 +163,7 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
                             columnList.add(this.getPath(c));
                         } else if (c.function() != null) {
                             if ("count".equals(c.function().ID().getText())) {
-                                String tableName = this.tableMap.get(this.queryIndex).entrySet().stream().map(e -> e.getValue().getName()).findFirst().get();
+                                String tableName = this.indexTableMap.get(this.queryIndex).entrySet().stream().map(e -> e.getValue().getName()).findFirst().get();
                                 columnList.add(String.format("q%s.count()", CoreUtil.getJavaClassName(tableName)));
                             }
                         }
@@ -181,17 +185,17 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
                 .tableReference()
                 .stream()
                 .forEach(c -> {
-                    Map<String, Table> map = Optional.ofNullable(this.tableMap.get(this.queryIndex)).orElse(new LinkedHashMap<>());
+                    Map<String, Table> map = Optional.ofNullable(this.indexTableMap.get(this.queryIndex)).orElse(new LinkedHashMap<>());
                     String tableName = c.tableAtom().tableName().getText();
                     String tableAlias = Optional.ofNullable(c.tableAtom().tableAlias()).map(ac -> ac.getText()).orElse(tableName);
                     map.put(tableAlias, new Table().setName(tableName).setAlias(tableAlias).setType(Table.Type.JOIN));
-                    this.tableMap.put(this.queryIndex, map);
+                    this.indexTableMap.put(this.queryIndex, map);
                     this.list.add("q" + CoreUtil.getJavaClassName(tableName));
                 });
         }
 
         if (this.mode == POST) {
-            String from = this.tableMap
+            String from = this.indexTableMap
                 .get(this.queryIndex)
                 .entrySet()
                 .stream()
@@ -219,7 +223,7 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
             return String.format("%s", context.STRING().getText().replaceAll("'", "\""));
         }
 
-        Map<String, Table> table = this.tableMap.get(this.queryIndex);
+        Map<String, Table> tableMap = this.indexTableMap.get(this.queryIndex);
         MySQLParser.TableAliasContext tableAliasContext = context.tableAlias();
 
         String tableName = null;
@@ -227,7 +231,7 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
         if (tableAliasContext != null) {
             tableName =
                 Optional
-                    .ofNullable(table.get(tableAliasContext.getText()))
+                    .ofNullable(tableMap.get(tableAliasContext.getText()))
                     .map(Table::getName)
                     .orElse(null);
         }
@@ -236,18 +240,19 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
 
         while (tableName == null) {
             currentQueryIndex--;
-            table = this.tableMap.get(currentQueryIndex);
+            tableMap = this.indexTableMap.get(currentQueryIndex);
 
-            if (table == null) {
+            if (tableMap == null) {
                 break;
             }
 
-            tableName = table.get(tableAliasContext.getText()).getName();
+            String tableAlias = tableAliasContext.getText();
+            tableName = Optional.ofNullable(tableMap.get(tableAlias)).map(Table::getName).orElse(null);
         }
 
         if (tableName == null) {
             tableName =
-                this.tableMap.get(this.queryIndex)
+                this.indexTableMap.get(this.queryIndex)
                 .entrySet()
                 .stream()
                 .map(e -> e.getValue().getName())
@@ -273,33 +278,30 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
             expression.simpleExpression();
 
         String keyword = whereType.getKeyword();
+
         simpleExpressionContextList
             .stream()
+            .filter(c -> c.exists() == null)
+            .filter(c -> c.notExists() == null)
             .forEach(
-            e -> {
-                if (e.EXISTS() != null) {
-                    this.list.add(String.format(".%s(", keyword));
-                    this.isExists = true;
-                } else if (e.inClause() != null) {
-                    this.list.add(String.format(".%s(%s.in%s)", keyword, this.getPath(e.element().columnName()), e.inClause().getText().replaceAll("'", "\"")));
-                } else {
-                    MySQLParser.LeftElementContext leftElementContext = e.leftElement();
-                    MySQLParser.ColumnNameContext leftColumn = leftElementContext.element().columnName();
+                c -> {
+                    if (c.inClause() != null) {
+                        String leftPath = this.getPath(c.element().columnName());
+                        String rightPath = c.inClause().getText().replaceAll("'", "\"");
+                        this.list.add(String.format(".%s(%s.in%s)", keyword, leftPath, rightPath));
+                    } else {
+                        MySQLParser.LeftElementContext leftElementContext = c.leftElement();
+                        MySQLParser.ColumnNameContext leftColumn = leftElementContext.element().columnName();
 
-                    if (leftColumn != null) {
-                        MySQLParser.ColumnNameContext rightColumn = e.rightElement().element().columnName();
-                        String leftPath = getPath(leftColumn);
-                        String relationOp = this.opMap.get(e.relationalOp().getText());
-                        String rightPath = getPath(rightColumn);
-                        this.list.add(String.format(".%s(%s.%s(%s))", keyword, leftPath, relationOp, rightPath));
+                        if (leftColumn != null) {
+                            MySQLParser.ColumnNameContext rightColumn = c.rightElement().element().columnName();
+                            String leftPath = getPath(leftColumn);
+                            String relationOp = this.opMap.get(c.relationalOp().getText());
+                            String rightPath = getPath(rightColumn);
+                            this.list.add(String.format(".%s(%s.%s(%s))", keyword, leftPath, relationOp, rightPath));
+                        }
                     }
-
-                    if (this.isExists) {
-                        this.list.add(".exists())");
-                        this.isExists = false;
-                    }
-                }
-            });
+                });
     }
 
     @Override
@@ -379,7 +381,7 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
 
         if (this.mode == PRE) {
             if (ctx.LEFT() != null) {
-                Map<String, Table> map = Optional.ofNullable(this.tableMap.get(this.queryIndex)).orElse(new LinkedHashMap<>());
+                Map<String, Table> map = Optional.ofNullable(this.indexTableMap.get(this.queryIndex)).orElse(new LinkedHashMap<>());
                 String tableName = tableAtomContext.tableName().getText();
                 String tableAlias = Optional.ofNullable(tableAtomContext.tableAlias()).map(a -> a.getText()).orElse(tableName);
                 map.put(tableAlias, new Table().setName(tableName).setAlias(tableAlias).setType(Table.Type.LEFT_JOIN));
@@ -448,6 +450,8 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
 
     @Override
     public MySQLVisitor visitSubquery(MySQLParser.SubqueryContext ctx) {
+        this.queryIndex++;
+        this.indexSubqueryMap.put(this.queryIndex, SubQuery.NONE);
         return super.visitSubquery(ctx);
     }
 
@@ -477,5 +481,34 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
             .collect(Collectors.joining(","));
         this.list.add(String.format(".orderBy(%s)", orderBy));
         return super.visitOrderByClause(ctx);
+    }
+
+    @Override
+    public MySQLVisitor visitExists(MySQLParser.ExistsContext ctx) {
+        this.isExists = true;
+        this.list.add(".where(");
+        return super.visitExists(ctx);
+    }
+
+    @Override
+    public MySQLVisitor visitNotExists(MySQLParser.NotExistsContext ctx) {
+        this.isNotExists = true;
+        this.list.add(".where(");
+        return super.visitNotExists(ctx);
+    }
+
+    @Override
+    public MySQLVisitor visitSubqueryEnd(MySQLParser.SubqueryEndContext ctx) {
+        if (this.isNotExists) {
+            this.list.add(".notExists())");
+            this.isNotExists = false;
+        }
+
+        if (this.isExists) {
+            this.list.add(".exists())");
+            this.isExists = false;
+        }
+
+        return super.visitSubqueryEnd(ctx);
     }
 }

@@ -132,10 +132,18 @@ simpleExpression
    : leftElement relationalOp rightElement
    | targetElement betweenOp leftElement AND rightElement
    | targetElement isOrIsNot NULL
-   | EXISTS subquery
-   | NOT EXISTS subquery
+   | exists
+   | notExists
    | element IN inClause
    ;
+
+exists
+    : EXISTS subquery
+    ;
+
+notExists
+    : NOT EXISTS subquery
+    ;
 
 inClause
     :LPAREN (element | INT | STRING) ( COMMA element | INT | STRING )+ RPAREN
@@ -215,5 +223,9 @@ subqueryAlias
    ;
 
 subquery
-   : LPAREN selectClause RPAREN
+   : LPAREN selectClause subqueryEnd
    ;
+
+subqueryEnd
+    : RPAREN
+    ;

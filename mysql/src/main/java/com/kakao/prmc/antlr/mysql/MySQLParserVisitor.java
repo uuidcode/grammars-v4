@@ -191,6 +191,18 @@ public interface MySQLParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSimpleExpression(MySQLParser.SimpleExpressionContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link MySQLParser#exists}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExists(MySQLParser.ExistsContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link MySQLParser#notExists}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNotExists(MySQLParser.NotExistsContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link MySQLParser#inClause}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -292,4 +304,10 @@ public interface MySQLParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitSubquery(MySQLParser.SubqueryContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link MySQLParser#subqueryEnd}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSubqueryEnd(MySQLParser.SubqueryEndContext ctx);
 }

@@ -308,6 +308,26 @@ public interface MySQLParserListener extends ParseTreeListener {
 	 */
 	void exitSimpleExpression(MySQLParser.SimpleExpressionContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link MySQLParser#exists}.
+	 * @param ctx the parse tree
+	 */
+	void enterExists(MySQLParser.ExistsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MySQLParser#exists}.
+	 * @param ctx the parse tree
+	 */
+	void exitExists(MySQLParser.ExistsContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MySQLParser#notExists}.
+	 * @param ctx the parse tree
+	 */
+	void enterNotExists(MySQLParser.NotExistsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MySQLParser#notExists}.
+	 * @param ctx the parse tree
+	 */
+	void exitNotExists(MySQLParser.NotExistsContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link MySQLParser#inClause}.
 	 * @param ctx the parse tree
 	 */
@@ -477,4 +497,14 @@ public interface MySQLParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitSubquery(MySQLParser.SubqueryContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MySQLParser#subqueryEnd}.
+	 * @param ctx the parse tree
+	 */
+	void enterSubqueryEnd(MySQLParser.SubqueryEndContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MySQLParser#subqueryEnd}.
+	 * @param ctx the parse tree
+	 */
+	void exitSubqueryEnd(MySQLParser.SubqueryEndContext ctx);
 }

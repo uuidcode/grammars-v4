@@ -376,6 +376,30 @@ public class MySQLParserBaseListener implements MySQLParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterExists(MySQLParser.ExistsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExists(MySQLParser.ExistsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterNotExists(MySQLParser.NotExistsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNotExists(MySQLParser.NotExistsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterInClause(MySQLParser.InClauseContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -575,6 +599,18 @@ public class MySQLParserBaseListener implements MySQLParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitSubquery(MySQLParser.SubqueryContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSubqueryEnd(MySQLParser.SubqueryEndContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSubqueryEnd(MySQLParser.SubqueryEndContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

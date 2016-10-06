@@ -37,7 +37,7 @@ public class MySQLParserTest {
 
     private MySQLVisitor getMySQLVisitor(String filename, MySQLVisitor preMySQLVisitor) throws IOException {
         MySQLVisitor mySQLVisitor = new MySQLVisitor(MySQLVisitor.Mode.POST);
-        mySQLVisitor.setTableMap(preMySQLVisitor.getTableMap());
+        mySQLVisitor.setIndexTableMap(preMySQLVisitor.getIndexTableMap());
         mySQLVisitor.visit(getSelectClauseContext(filename));
         return mySQLVisitor;
     }
