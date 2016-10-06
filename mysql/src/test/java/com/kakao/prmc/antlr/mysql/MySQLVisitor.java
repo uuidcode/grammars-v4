@@ -69,14 +69,12 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
         return CoreUtil.joining(this.list, NEW_LINE);
     }
 
-    @Override
-    public MySQLVisitor visitStat(MySQLParser.StatContext ctx) {
-        return super.visitStat(ctx);
+    public void log(Object object) {
+        //System.out.println("###" + object);
     }
 
-    @Override
-    public MySQLVisitor visitSchemaName(MySQLParser.SchemaNameContext ctx) {
-        return super.visitSchemaName(ctx);
+    public void log(String title, Object object) {
+        log(title + ":" + CoreUtil.toJson(object));
     }
 
     @Override
@@ -87,44 +85,6 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
         }
 
         return super.visitSelectClause(ctx);
-    }
-
-    @Override
-    public MySQLVisitor visitTableName(MySQLParser.TableNameContext ctx) {
-        return super.visitTableName(ctx);
-    }
-
-    @Override
-    public MySQLVisitor visitTableAlias(MySQLParser.TableAliasContext ctx) {
-        return super.visitTableAlias(ctx);
-    }
-
-    @Override
-    public MySQLVisitor visitColumnName(MySQLParser.ColumnNameContext ctx) {
-        return super.visitColumnName(ctx);
-    }
-
-    @Override
-    public MySQLVisitor visitColumnNameAlias(MySQLParser.ColumnNameAliasContext ctx) {
-        return super.visitColumnNameAlias(ctx);
-    }
-
-    @Override
-    public MySQLVisitor visitIndexName(MySQLParser.IndexNameContext ctx) {
-        return super.visitIndexName(ctx);
-    }
-
-    @Override
-    public MySQLVisitor visitColumnList(MySQLParser.ColumnListContext ctx) {
-        return super.visitColumnList(ctx);
-    }
-
-    public void log(Object object) {
-        //System.out.println("###" + object);
-    }
-
-    public void log(String title, Object object) {
-        log(title + ":" + CoreUtil.toJson(object));
     }
 
     @Override
@@ -213,11 +173,6 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
         }
 
         return super.visitFromClause(ctx);
-    }
-
-    @Override
-    public MySQLVisitor visitSelectKey(MySQLParser.SelectKeyContext ctx) {
-        return super.visitSelectKey(ctx);
     }
 
     private String getPath(MySQLParser.ColumnNameContext context) {
@@ -311,77 +266,6 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
     }
 
     @Override
-    public MySQLVisitor visitExpression(MySQLParser.ExpressionContext ctx) {
-        return super.visitExpression(ctx);
-    }
-
-    @Override
-    public MySQLVisitor visitElement(MySQLParser.ElementContext ctx) {
-        return super.visitElement(ctx);
-    }
-
-    @Override
-    public MySQLVisitor visitRightElement(MySQLParser.RightElementContext ctx) {
-        return super.visitRightElement(ctx);
-    }
-
-    @Override
-    public MySQLVisitor visitLeftElement(MySQLParser.LeftElementContext ctx) {
-        return super.visitLeftElement(ctx);
-    }
-
-    @Override
-    public MySQLVisitor visitTargetElement(MySQLParser.TargetElementContext ctx) {
-        return super.visitTargetElement(ctx);
-    }
-
-    @Override
-    public MySQLVisitor visitRelationalOp(MySQLParser.RelationalOpContext ctx) {
-        return super.visitRelationalOp(ctx);
-    }
-
-    @Override
-    public MySQLVisitor visitExprOp(MySQLParser.ExprOpContext ctx) {
-        return super.visitExprOp(ctx);
-    }
-
-    @Override
-    public MySQLVisitor visitBetweenOp(MySQLParser.BetweenOpContext ctx) {
-        return super.visitBetweenOp(ctx);
-    }
-
-    @Override
-    public MySQLVisitor visitIsOrIsNot(MySQLParser.IsOrIsNotContext ctx) {
-        return super.visitIsOrIsNot(ctx);
-    }
-
-    @Override
-    public MySQLVisitor visitSimpleExpression(MySQLParser.SimpleExpressionContext ctx) {
-        return super.visitSimpleExpression(ctx);
-    }
-
-    @Override
-    public MySQLVisitor visitTableReferences(MySQLParser.TableReferencesContext ctx) {
-        return super.visitTableReferences(ctx);
-    }
-
-    @Override
-    public MySQLVisitor visitTableReference(MySQLParser.TableReferenceContext ctx) {
-        return super.visitTableReference(ctx);
-    }
-
-
-    @Override
-    public MySQLVisitor visitTableFactor4(MySQLParser.TableFactor4Context ctx) {
-        return super.visitTableFactor4(ctx);
-    }
-
-    @Override
-    public MySQLVisitor visitTableAtom(MySQLParser.TableAtomContext ctx) {
-        return super.visitTableAtom(ctx);
-    }
-
-    @Override
     public MySQLVisitor visitJoinClause(MySQLParser.JoinClauseContext ctx) {
         MySQLParser.TableAtomContext tableAtomContext = ctx.leftjoinTableAtom().tableAtom();
 
@@ -407,51 +291,6 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
         }
 
         return super.visitJoinClause(ctx);
-    }
-
-    @Override
-    public MySQLVisitor visitJoinCondition(MySQLParser.JoinConditionContext ctx) {
-        return super.visitJoinCondition(ctx);
-    }
-
-    @Override
-    public MySQLVisitor visitIndexHintList(MySQLParser.IndexHintListContext ctx) {
-        return super.visitIndexHintList(ctx);
-    }
-
-    @Override
-    public MySQLVisitor visitIndexOptions(MySQLParser.IndexOptionsContext ctx) {
-        return super.visitIndexOptions(ctx);
-    }
-
-    @Override
-    public MySQLVisitor visitIndexHint(MySQLParser.IndexHintContext ctx) {
-        return super.visitIndexHint(ctx);
-    }
-
-    @Override
-    public MySQLVisitor visitIndexList(MySQLParser.IndexListContext ctx) {
-        return super.visitIndexList(ctx);
-    }
-
-    @Override
-    public MySQLVisitor visitPartitionClause(MySQLParser.PartitionClauseContext ctx) {
-        return super.visitPartitionClause(ctx);
-    }
-
-    @Override
-    public MySQLVisitor visitPartitionNames(MySQLParser.PartitionNamesContext ctx) {
-        return super.visitPartitionNames(ctx);
-    }
-
-    @Override
-    public MySQLVisitor visitPartitionName(MySQLParser.PartitionNameContext ctx) {
-        return super.visitPartitionName(ctx);
-    }
-
-    @Override
-    public MySQLVisitor visitSubqueryAlias(MySQLParser.SubqueryAliasContext ctx) {
-        return super.visitSubqueryAlias(ctx);
     }
 
     @Override
