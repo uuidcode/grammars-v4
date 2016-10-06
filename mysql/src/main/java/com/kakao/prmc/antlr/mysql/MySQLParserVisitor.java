@@ -29,6 +29,36 @@ public interface MySQLParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSelect_clause(MySQLParser.Select_clauseContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link MySQLParser#asc_desc}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAsc_desc(MySQLParser.Asc_descContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link MySQLParser#groupBy_clause}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitGroupBy_clause(MySQLParser.GroupBy_clauseContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link MySQLParser#groupBy_item}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitGroupBy_item(MySQLParser.GroupBy_itemContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link MySQLParser#orderBy_clause}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOrderBy_clause(MySQLParser.OrderBy_clauseContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link MySQLParser#orderBy_item}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOrderBy_item(MySQLParser.OrderBy_itemContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link MySQLParser#table_name}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -46,6 +76,18 @@ public interface MySQLParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitColumn_name(MySQLParser.Column_nameContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link MySQLParser#function}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunction(MySQLParser.FunctionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link MySQLParser#function_parameter}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunction_parameter(MySQLParser.Function_parameterContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MySQLParser#column_name_alias}.
 	 * @param ctx the parse tree

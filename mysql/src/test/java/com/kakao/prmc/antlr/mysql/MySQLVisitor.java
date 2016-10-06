@@ -3,7 +3,12 @@ package com.kakao.prmc.antlr.mysql;
 import static com.kakao.prmc.antlr.mysql.MySQLVisitor.Mode.POST;
 import static com.kakao.prmc.antlr.mysql.MySQLVisitor.Mode.PRE;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.kakao.prmc.core.utility.CoreUtil;
@@ -16,6 +21,7 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
     private List<String> list = new ArrayList<>();
     private Mode mode;
     private boolean isExists = false;
+    private Integer columnIndex = 0;
 
     public static enum Mode {
         PRE, POST
@@ -102,6 +108,9 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
 
     @Override
     public MySQLVisitor visitColumn_list_clause(MySQLParser.Column_list_clauseContext ctx) {
+        this.columnIndex = 0;
+        List<String> columnList = new ArrayList<>();
+
         if (this.mode == POST) {
             List<MySQLParser.Column_nameContext> columnNameContextList = ctx.column_name();
 
@@ -114,33 +123,38 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
                     if (tableAliasContext != null) {
                         String alias = tableAliasContext.getText();
                         if (c.ASTERISK() != null) {
-                            String column =
+                            columnList.addAll(
                                 table
                                     .entrySet()
                                     .stream()
                                     .filter(e -> e.getKey().equals(alias))
                                     .map(e -> e.getValue())
                                     .map(e -> "q" + CoreUtil.getJavaClassName(e))
-                                    .collect(Collectors.joining(String.format(",%s", NEW_LINE)));
-                            this.list.add(column);
+                                    .collect(Collectors.toList()));
                         }
                     } else {
                         if (c.ASTERISK() != null) {
-                            String column =
+                            columnList.addAll(
                                 table
                                     .entrySet()
                                     .stream()
                                     .map(e -> e.getValue())
                                     .map(e -> "q" + CoreUtil.getJavaClassName(e))
-                                    .collect(Collectors.joining(String.format(",%s", NEW_LINE)));
-                            this.list.add(column);
+                                    .collect(Collectors.toList()));
                         } else if (c.INT() != null) {
-                            this.list.add(String.format("Expressions.constant(%s)", c.INT().getText()));
+                            columnList.add(String.format("Expressions.constant(%s)", c.INT().getText()));
+                        } else if (c.ID() != null) {
+                            columnList.add(this.getPath(c));
+                        } else if (c.function() != null) {
+                            if ("count".equals(c.function().ID().getText())) {
+                                String tableName = this.tableMap.get(this.queryIndex).entrySet().stream().map(e -> e.getValue()).findFirst().get();
+                                columnList.add(String.format("q%s.count()", CoreUtil.getJavaClassName(tableName)));
+                            }
                         }
                     }
                 });
 
-
+            list.add(columnList.stream().collect(Collectors.joining(String.format(",%s", NEW_LINE))));
             list.add(")");
         }
 
@@ -185,9 +199,20 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
     }
 
     private String getPath(MySQLParser.Column_nameContext context) {
+        if (context.INT() != null) {
+            return context.INT().getText();
+        } else if (context.STRING() != null) {
+            return String.format("\"%s\"", context.STRING().getText());
+        }
+
         Map<String, String> table = this.tableMap.get(this.queryIndex);
         MySQLParser.Table_aliasContext tableAliasContext = context.table_alias();
-        String tableName = table.get(tableAliasContext.getText());
+
+        String tableName = null;
+
+        if (tableAliasContext != null) {
+            tableName = table.get(tableAliasContext.getText());
+        }
 
         int currentQueryIndex = this.queryIndex;
 
@@ -202,6 +227,15 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
             tableName = table.get(tableAliasContext.getText());
         }
 
+        if (tableName == null) {
+            tableName =
+                this.tableMap.get(this.queryIndex)
+                .entrySet()
+                .stream()
+                .map(e -> e.getValue())
+                .findFirst()
+                .get();
+        }
 
         String columnName = context.ID().getText();
         return String.format("q%s.%s", CoreUtil.getJavaClassName(tableName), CoreUtil.getJavaFieldName(columnName));
@@ -223,11 +257,16 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
                     } else if (e.in_clause() != null) {
                         this.list.add(String.format(".where(%s.in%s)", this.getPath(e.element().column_name()), e.in_clause().getText().replaceAll("'", "\"")));
                     } else {
-                        Optional.ofNullable(e.left_element().element().column_name()).ifPresent(
-                            leftColumn -> {
-                                MySQLParser.Column_nameContext rightColumn = e.right_element().element().column_name();
-                                this.list.add(String.format(".where(%s.%s(%s))", getPath(leftColumn), this.opMap.get(e.relational_op().getText()), getPath(rightColumn)));
-                            });
+                        MySQLParser.Left_elementContext left_elementContext = e.left_element();
+                        MySQLParser.Column_nameContext leftColumn = left_elementContext.element().column_name();
+
+                        if (leftColumn != null) {
+                            MySQLParser.Column_nameContext rightColumn = e.right_element().element().column_name();
+                            String leftPath = getPath(leftColumn);
+                            String relationOp = this.opMap.get(e.relational_op().getText());
+                            String rightPath = getPath(rightColumn);
+                            this.list.add(String.format(".where(%s.%s(%s))", leftPath, relationOp, rightPath));
+                        }
 
                         if (this.isExists) {
                             this.list.add(".exists())");
@@ -364,5 +403,33 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
     @Override
     public MySQLVisitor visitSubquery(MySQLParser.SubqueryContext ctx) {
         return super.visitSubquery(ctx);
+    }
+
+    @Override
+    public MySQLVisitor visitGroupBy_clause(MySQLParser.GroupBy_clauseContext ctx) {
+        String groupBy = ctx.groupBy_item()
+            .stream()
+            .map(c -> {
+                String path = this.getPath(c.column_name());
+                return String.format("%s", path);
+            })
+            .collect(Collectors.joining(","));
+        this.list.add(String.format(".groupBy(%s)", groupBy));
+        return super.visitGroupBy_clause(ctx);
+    }
+
+    @Override
+    public MySQLVisitor visitOrderBy_clause(MySQLParser.OrderBy_clauseContext ctx) {
+        String orderBy =
+            ctx.orderBy_item()
+            .stream()
+            .map(c -> {
+                String path = this.getPath(c.column_name());
+                String ascDesc = Optional.ofNullable(c.asc_desc()).map(MySQLParser.Asc_descContext::getText).orElse("asc");
+                return String.format("%s.%s()", path, ascDesc);
+            })
+            .collect(Collectors.joining(","));
+        this.list.add(String.format(".orderBy(%s)", orderBy));
+        return super.visitOrderBy_clause(ctx);
     }
 }

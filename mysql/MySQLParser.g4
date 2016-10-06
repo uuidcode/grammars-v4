@@ -13,8 +13,29 @@ schema_name
    ;
 
 select_clause
-   : SELECT column_list_clause ( from_clause )? ( where_clause )?
+   : SELECT column_list_clause ( from_clause )? ( where_clause )? ( groupBy_clause )? ( orderBy_clause )?
    ;
+
+asc_desc
+    : ASC
+    | DESC
+    ;
+
+groupBy_clause
+    : GROUP BY groupBy_item? ( COMMA groupBy_item )*
+    ;
+
+groupBy_item
+    : column_name
+    ;
+
+orderBy_clause
+    : ORDER BY orderBy_item? ( COMMA orderBy_item )*
+    ;
+
+orderBy_item
+    : column_name (asc_desc)?
+    ;
 
 table_name
    : ID
@@ -30,8 +51,16 @@ column_name
    | ( table_alias DOT )? ID
    | INT
    | STRING
-   | USER_VAR ( column_name_alias )?
+   | function
    ;
+
+function
+    : ID LPAREN function_parameter RPAREN
+    ;
+
+function_parameter
+    : column_name ( COMMA column_name )*
+    ;
 
 column_name_alias
    : ID
@@ -66,7 +95,9 @@ expression
    ;
 
 element
-   : USER_VAR | ID | ( '|' ID '|' ) | INT | column_name
+   : column_name
+   | INT
+   | STRING
    ;
 
 right_element

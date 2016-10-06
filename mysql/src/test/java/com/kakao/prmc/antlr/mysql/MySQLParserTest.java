@@ -21,6 +21,7 @@ public class MySQLParserTest {
         checkJava("simple2");
         checkJava("simple3");
         checkJava("exists1");
+        checkJava("groupBy1");
     }
 
     private MySQLVisitor getMySQLVisitor(String filename) throws IOException {

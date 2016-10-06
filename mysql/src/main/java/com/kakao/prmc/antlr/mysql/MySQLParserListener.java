@@ -38,6 +38,56 @@ public interface MySQLParserListener extends ParseTreeListener {
 	 */
 	void exitSelect_clause(MySQLParser.Select_clauseContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link MySQLParser#asc_desc}.
+	 * @param ctx the parse tree
+	 */
+	void enterAsc_desc(MySQLParser.Asc_descContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MySQLParser#asc_desc}.
+	 * @param ctx the parse tree
+	 */
+	void exitAsc_desc(MySQLParser.Asc_descContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MySQLParser#groupBy_clause}.
+	 * @param ctx the parse tree
+	 */
+	void enterGroupBy_clause(MySQLParser.GroupBy_clauseContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MySQLParser#groupBy_clause}.
+	 * @param ctx the parse tree
+	 */
+	void exitGroupBy_clause(MySQLParser.GroupBy_clauseContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MySQLParser#groupBy_item}.
+	 * @param ctx the parse tree
+	 */
+	void enterGroupBy_item(MySQLParser.GroupBy_itemContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MySQLParser#groupBy_item}.
+	 * @param ctx the parse tree
+	 */
+	void exitGroupBy_item(MySQLParser.GroupBy_itemContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MySQLParser#orderBy_clause}.
+	 * @param ctx the parse tree
+	 */
+	void enterOrderBy_clause(MySQLParser.OrderBy_clauseContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MySQLParser#orderBy_clause}.
+	 * @param ctx the parse tree
+	 */
+	void exitOrderBy_clause(MySQLParser.OrderBy_clauseContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MySQLParser#orderBy_item}.
+	 * @param ctx the parse tree
+	 */
+	void enterOrderBy_item(MySQLParser.OrderBy_itemContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MySQLParser#orderBy_item}.
+	 * @param ctx the parse tree
+	 */
+	void exitOrderBy_item(MySQLParser.OrderBy_itemContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link MySQLParser#table_name}.
 	 * @param ctx the parse tree
 	 */
@@ -67,6 +117,26 @@ public interface MySQLParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitColumn_name(MySQLParser.Column_nameContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MySQLParser#function}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunction(MySQLParser.FunctionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MySQLParser#function}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunction(MySQLParser.FunctionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link MySQLParser#function_parameter}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunction_parameter(MySQLParser.Function_parameterContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MySQLParser#function_parameter}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunction_parameter(MySQLParser.Function_parameterContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link MySQLParser#column_name_alias}.
 	 * @param ctx the parse tree
