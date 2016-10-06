@@ -55,6 +55,8 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
 
     @Override
     public MySQLVisitor visitSelect_clause(MySQLParser.Select_clauseContext ctx) {
+        this.queryIndex++;
+
         if (this.mode == POST) {
             list.add("this.queryService");
             list.add(".select(");
@@ -332,7 +334,6 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
 
     @Override
     public MySQLVisitor visitSubquery(MySQLParser.SubqueryContext ctx) {
-        this.queryIndex++;
         return super.visitSubquery(ctx);
     }
 }
