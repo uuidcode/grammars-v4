@@ -17,7 +17,6 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
     private final static String NEW_LINE = "\r\n";
     private Map<String, String> opMap = new HashMap<>();
     private Map<Integer, Map<String, Table>> indexTableMap = new LinkedHashMap<>();
-    private Map<Integer, SubQuery> indexSubqueryMap = new LinkedHashMap<>();
     private Integer queryIndex = 0;
     private List<String> list = new ArrayList<>();
     private Mode mode;
