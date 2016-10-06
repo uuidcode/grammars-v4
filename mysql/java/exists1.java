@@ -1,0 +1,13 @@
+this.queryService
+.select(
+qProject
+)
+.from(qProject)
+.where(
+this.queryService
+.select(
+Expressions.constant(1)
+)
+.from(qProjectEpisode)
+.where(qProjectEpisode.projectId.eq(qProject.projectId))
+.exists())

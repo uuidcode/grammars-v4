@@ -15,6 +15,7 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
     private Integer queryIndex = 0;
     private List<String> list = new ArrayList<>();
     private Mode mode;
+    private boolean isExists = false;
 
     public static enum Mode {
         PRE, POST
@@ -133,6 +134,8 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
                                     .map(e -> "q" + CoreUtil.getJavaClassName(e))
                                     .collect(Collectors.joining(String.format(",%s", NEW_LINE)));
                             this.list.add(column);
+                        } else if (c.INT() != null) {
+                            this.list.add(String.format("Expressions.constant(%s)", c.INT().getText()));
                         }
                     }
                 });
@@ -185,6 +188,21 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
         Map<String, String> table = this.tableMap.get(this.queryIndex);
         MySQLParser.Table_aliasContext tableAliasContext = context.table_alias();
         String tableName = table.get(tableAliasContext.getText());
+
+        int currentQueryIndex = this.queryIndex;
+
+        while (tableName == null) {
+            currentQueryIndex--;
+            table = this.tableMap.get(currentQueryIndex);
+
+            if (table == null) {
+                break;
+            }
+
+            tableName = table.get(tableAliasContext.getText());
+        }
+
+
         String columnName = context.ID().getText();
         return String.format("q%s.%s", CoreUtil.getJavaClassName(tableName), CoreUtil.getJavaFieldName(columnName));
     }
@@ -199,12 +217,21 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
                 .stream()
                 .forEach(
                 e -> {
-                    Optional.ofNullable(e.left_element().element().column_name()).ifPresent(
-                        leftColumn -> {
-                            MySQLParser.Column_nameContext rightColumn = e.right_element().element().column_name();
-                            this.list.add(String.format(".where(%s.%s(%s))", getPath(leftColumn), this.opMap.get(e.relational_op().getText()), getPath(rightColumn)));
+                    if (e.EXISTS() != null) {
+                        this.list.add(".where(");
+                        this.isExists = true;
+                    } else {
+                        Optional.ofNullable(e.left_element().element().column_name()).ifPresent(
+                            leftColumn -> {
+                                MySQLParser.Column_nameContext rightColumn = e.right_element().element().column_name();
+                                this.list.add(String.format(".where(%s.%s(%s))", getPath(leftColumn), this.opMap.get(e.relational_op().getText()), getPath(rightColumn)));
+                            });
+
+                        if (this.isExists) {
+                            this.list.add(".exists())");
+                            this.isExists = false;
                         }
-                    );
+                    }
                 });
         }
 

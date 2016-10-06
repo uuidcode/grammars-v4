@@ -20,6 +20,7 @@ public class MySQLParserTest {
         checkJava("simple1");
         checkJava("simple2");
         checkJava("simple3");
+        checkJava("exists1");
     }
 
     private MySQLVisitor getMySQLVisitor(String filename) throws IOException {
