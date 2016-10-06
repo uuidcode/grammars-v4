@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import com.kakao.prmc.core.utility.CoreUtil;
 
 public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
+    private final static String NEW_LINE = "\r\n";
     private Map<String, String> opMap = new HashMap<>();
     private Map<Integer, Map<String, String>> tableMap = new LinkedHashMap<>();
     private Integer queryIndex = 0;
@@ -39,7 +40,7 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
     }
 
     public String getSource() {
-        return CoreUtil.joining(this.list, CoreUtil.lineSeparator());
+        return CoreUtil.joining(this.list, NEW_LINE);
     }
 
     @Override
@@ -109,7 +110,7 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
 
                     if (tableAliasContext != null) {
                         String alias = tableAliasContext.getText();
-                        if (c.ALL_FIELDS() != null) {
+                        if (c.ASTERISK() != null) {
                             String column =
                                 table
                                     .entrySet()
@@ -117,7 +118,7 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
                                     .filter(e -> e.getKey().equals(alias))
                                     .map(e -> e.getValue())
                                     .map(e -> "q" + CoreUtil.getJavaClassName(e))
-                                    .collect(Collectors.joining(String.format(",%s", CoreUtil.lineSeparator())));
+                                    .collect(Collectors.joining(String.format(",%s", NEW_LINE)));
                             this.list.add(column);
                         }
                     } else {
@@ -128,7 +129,7 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
                                     .stream()
                                     .map(e -> e.getValue())
                                     .map(e -> "q" + CoreUtil.getJavaClassName(e))
-                                    .collect(Collectors.joining(String.format(",%s", CoreUtil.lineSeparator())));
+                                    .collect(Collectors.joining(String.format(",%s", NEW_LINE)));
                             this.list.add(column);
                         }
                     }
@@ -165,7 +166,7 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
                 .stream()
                 .map(entry -> entry.getValue())
                 .map(name -> String.format(".from(%s)", "q" + CoreUtil.getJavaClassName(name)))
-                .collect(Collectors.joining(CoreUtil.lineSeparator()));
+                .collect(Collectors.joining(NEW_LINE));
 
             this.list.add(from);
         }
