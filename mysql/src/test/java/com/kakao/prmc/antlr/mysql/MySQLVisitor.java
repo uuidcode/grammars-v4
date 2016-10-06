@@ -220,6 +220,8 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
                     if (e.EXISTS() != null) {
                         this.list.add(".where(");
                         this.isExists = true;
+                    } else if (e.in_clause() != null) {
+                        this.list.add(String.format(".where(%s.in%s)", this.getPath(e.element().column_name()), e.in_clause().getText().replaceAll("'", "\"")));
                     } else {
                         Optional.ofNullable(e.left_element().element().column_name()).ifPresent(
                             leftColumn -> {

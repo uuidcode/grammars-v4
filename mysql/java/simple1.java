@@ -3,3 +3,4 @@ this.queryService
 qProject
 )
 .from(qProject)
+.where(qProject.projectType.in("PROJECT","HEART"))

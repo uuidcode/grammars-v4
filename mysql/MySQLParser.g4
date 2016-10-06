@@ -98,8 +98,17 @@ is_or_is_not
    ;
 
 simple_expression
-   : left_element relational_op right_element | target_element between_op left_element AND right_element | target_element is_or_is_not NULL | EXISTS subquery | NOT EXISTS subquery
+   : left_element relational_op right_element
+   | target_element between_op left_element AND right_element
+   | target_element is_or_is_not NULL
+   | EXISTS subquery
+   | NOT EXISTS subquery
+   | element IN in_clause
    ;
+
+in_clause
+    :LPAREN (element | INT | STRING) ( COMMA element | INT | STRING )+ RPAREN
+    ;
 
 table_references
    : table_reference ( ( COMMA table_reference ) | join_clause )*

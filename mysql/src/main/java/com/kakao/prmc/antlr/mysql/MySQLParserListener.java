@@ -238,6 +238,16 @@ public interface MySQLParserListener extends ParseTreeListener {
 	 */
 	void exitSimple_expression(MySQLParser.Simple_expressionContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link MySQLParser#in_clause}.
+	 * @param ctx the parse tree
+	 */
+	void enterIn_clause(MySQLParser.In_clauseContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link MySQLParser#in_clause}.
+	 * @param ctx the parse tree
+	 */
+	void exitIn_clause(MySQLParser.In_clauseContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link MySQLParser#table_references}.
 	 * @param ctx the parse tree
 	 */
