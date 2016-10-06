@@ -5,215 +5,215 @@ options
    { tokenVocab = MySQLLexer; }
 
 stat
-   : select_clause+
+   : selectClause+
    ;
 
-schema_name
+schemaName
    : ID
    ;
 
-select_clause
-   : SELECT column_list_clause ( from_clause )? ( where_clause )? ( groupBy_clause )? ( orderBy_clause )?
+selectClause
+   : SELECT columnListClause ( fromClause )? ( whereClause )? ( groupByClause )? ( orderByClause )?
    ;
 
-asc_desc
+ascDesc
     : ASC
     | DESC
     ;
 
-groupBy_clause
-    : GROUP BY groupBy_item? ( COMMA groupBy_item )*
+groupByClause
+    : GROUP BY groupByItem? ( COMMA groupByItem )*
     ;
 
-groupBy_item
-    : column_name
+groupByItem
+    : columnName
     ;
 
-orderBy_clause
-    : ORDER BY orderBy_item? ( COMMA orderBy_item )*
+orderByClause
+    : ORDER BY orderByItem? ( COMMA orderByItem )*
     ;
 
-orderBy_item
-    : column_name (asc_desc)?
+orderByItem
+    : columnName (ascDesc)?
     ;
 
-table_name
+tableName
    : ID
    ;
 
-table_alias
+tableAlias
    : ID
    ;
 
-column_name
+columnName
    : ASTERISK
-   | table_alias DOT ASTERISK
-   | ( table_alias DOT )? ID
+   | tableAlias DOT ASTERISK
+   | ( tableAlias DOT )? ID
    | INT
    | STRING
    | function
    ;
 
 function
-    : ID LPAREN function_parameter RPAREN
+    : ID LPAREN functionParameter RPAREN
     ;
 
-function_parameter
-    : column_name ( COMMA column_name )*
+functionParameter
+    : columnName ( COMMA columnName )*
     ;
 
-column_name_alias
+columnNameAlias
    : ID
    ;
 
-index_name
+indexName
    : ID
    ;
 
-column_list
-   : LPAREN column_name ( COMMA column_name )* RPAREN
+columnList
+   : LPAREN columnName ( COMMA columnName )* RPAREN
    ;
 
-column_list_clause
-   : column_name ( COMMA column_name )*
+columnListClause
+   : columnName ( COMMA columnName )*
    ;
 
-from_clause
-   :  FROM table_references
+fromClause
+   :  FROM tableReferences
    ;
 
-select_key
+selectKey
    : SELECT
    ;
 
-where_clause
+whereClause
    : WHERE expression
    ;
 
 expression
-   : simple_expression ( expr_op simple_expression )*
+   : simpleExpression ( exprOp simpleExpression )*
    ;
 
 element
-   : column_name
+   : columnName
    | INT
    | STRING
    ;
 
-right_element
+rightElement
    : element
    ;
 
-left_element
+leftElement
    : element
    ;
 
-target_element
+targetElement
    : element
    ;
 
-relational_op
+relationalOp
    : EQ | LTH | GTH | NOT_EQ | LET | GET
    ;
 
-expr_op
+exprOp
    : AND | XOR | OR | NOT
    ;
 
-between_op
+betweenOp
    : BETWEEN
    ;
 
-is_or_is_not
+isOrIsNot
    : IS | IS NOT
    ;
 
-simple_expression
-   : left_element relational_op right_element
-   | target_element between_op left_element AND right_element
-   | target_element is_or_is_not NULL
+simpleExpression
+   : leftElement relationalOp rightElement
+   | targetElement betweenOp leftElement AND rightElement
+   | targetElement isOrIsNot NULL
    | EXISTS subquery
    | NOT EXISTS subquery
-   | element IN in_clause
+   | element IN inClause
    ;
 
-in_clause
+inClause
     :LPAREN (element | INT | STRING) ( COMMA element | INT | STRING )+ RPAREN
     ;
 
-table_references
-   : table_reference ( ( COMMA table_reference ) | join_clause )*
+tableReferences
+   : tableReference ( ( COMMA tableReference ) | joinClause )*
 
    ;
 
-table_reference
-   : table_atom
+tableReference
+   : tableAtom
    ;
 
-//table_factor1
-//   : table_factor2 ( ( INNER | CROSS )? JOIN table_atom ( join_condition )? )?
+//tableFactor1
+//   : tableFactor2 ( ( INNER | CROSS )? JOIN tableAtom ( joinCondition )? )?
 //   ;
 //
-//table_factor2
-//   : table_factor3 ( STRAIGHT_JOIN table_atom ( ON expression )? )?
+//tableFactor2
+//   : tableFactor3 ( STRAIGHTJOIN tableAtom ( ON expression )? )?
 //   ;
 //
-//table_factor3
-//   : table_factor4 ( ( LEFT | RIGHT ) ( OUTER )? JOIN table_factor4 join_condition )?
+//tableFactor3
+//   : tableFactor4 ( ( LEFT | RIGHT ) ( OUTER )? JOIN tableFactor4 joinCondition )?
 //   ;
 //
-table_factor4
-   : table_atom ( NATURAL ( ( LEFT | RIGHT ) ( OUTER )? )? JOIN table_atom )?
+tableFactor4
+   : tableAtom ( NATURAL ( ( LEFT | RIGHT ) ( OUTER )? )? JOIN tableAtom )?
    ;
 
-leftjoin_table_atom
-    : table_atom
+leftjoinTableAtom
+    : tableAtom
     ;
 
-table_atom
-   : ( table_name ( partition_clause )? ( table_alias )? ( index_hint_list )? ) | ( subquery subquery_alias ) | ( LPAREN table_references RPAREN ) | ( OJ table_reference LEFT OUTER JOIN table_reference ON expression )
+tableAtom
+   : ( tableName ( partitionClause )? ( tableAlias )? ( indexHintList )? ) | ( subquery subqueryAlias ) | ( LPAREN tableReferences RPAREN ) | ( OJ tableReference LEFT OUTER JOIN tableReference ON expression )
    ;
 
-join_clause
-   : ( ( INNER | CROSS )? JOIN table_atom ( join_condition )? ) | ( STRAIGHT_JOIN table_atom ( ON expression )? ) | ( ( LEFT | RIGHT ) ( OUTER )? JOIN leftjoin_table_atom join_condition ) | ( NATURAL ( ( LEFT | RIGHT ) ( OUTER )? )? JOIN table_atom )
+joinClause
+   : ( ( INNER | CROSS )? JOIN tableAtom ( joinCondition )? ) | ( STRAIGHTJOIN tableAtom ( ON expression )? ) | ( ( LEFT | RIGHT ) ( OUTER )? JOIN leftjoinTableAtom joinCondition ) | ( NATURAL ( ( LEFT | RIGHT ) ( OUTER )? )? JOIN tableAtom )
    ;
 
-join_condition
-   : ( ON expression ( expr_op expression )* ) | ( USING column_list )
+joinCondition
+   : ( ON expression ( exprOp expression )* ) | ( USING columnList )
    ;
 
-index_hint_list
-   : index_hint ( COMMA index_hint )*
+indexHintList
+   : indexHint ( COMMA indexHint )*
    ;
 
-index_options
+indexOptions
    : ( INDEX | KEY ) ( FOR ( ( JOIN ) | ( ORDER BY ) | ( GROUP BY ) ) )?
    ;
 
-index_hint
-   : USE index_options LPAREN ( index_list )? RPAREN | IGNORE index_options LPAREN index_list RPAREN
+indexHint
+   : USE indexOptions LPAREN ( indexList )? RPAREN | IGNORE indexOptions LPAREN indexList RPAREN
    ;
 
-index_list
-   : index_name ( COMMA index_name )*
+indexList
+   : indexName ( COMMA indexName )*
    ;
 
-partition_clause
-   : PARTITION LPAREN partition_names RPAREN
+partitionClause
+   : PARTITION LPAREN partitionNames RPAREN
    ;
 
-partition_names
-   : partition_name ( COMMA partition_name )*
+partitionNames
+   : partitionName ( COMMA partitionName )*
    ;
 
-partition_name
+partitionName
    : ID
    ;
 
-subquery_alias
+subqueryAlias
    : ID
    ;
 
 subquery
-   : LPAREN select_clause RPAREN
+   : LPAREN selectClause RPAREN
    ;

@@ -14,9 +14,7 @@ import com.kakao.prmc.core.utility.CoreUtil;
 public class MySQLParserTest {
     @Test
     public void visit() throws Exception {
-        checkTableMap("exists1");
-        checkTableMap("exists2");
-        checkTableMap("simple1");
+        checkJava("exists1");
         checkJava("simple1");
         checkJava("simple2");
         checkJava("simple3");
@@ -25,33 +23,28 @@ public class MySQLParserTest {
         checkJava("leftJoin1");
     }
 
-    private MySQLVisitor getMySQLVisitor(String filename) throws IOException {
+    private MySQLParser.SelectClauseContext getSelectClauseContext(String filename) throws IOException {
         MySQLLexer mySQLLexer = new MySQLLexer(new ANTLRFileStream(String.format("sql/%s.sql", filename)));
         CommonTokenStream commonTokenStream = new CommonTokenStream(mySQLLexer);
-        MySQLParser mySQLParser = new MySQLParser(commonTokenStream);
+        return new MySQLParser(commonTokenStream).selectClause();
+    }
+
+    private MySQLVisitor getMySQLVisitor(String filename) throws IOException {
         MySQLVisitor mySQLVisitor = new MySQLVisitor(MySQLVisitor.Mode.PRE);
-        mySQLVisitor.visit(mySQLParser.select_clause());
+        mySQLVisitor.visit(getSelectClauseContext(filename));
         return mySQLVisitor;
     }
 
     private MySQLVisitor getMySQLVisitor(String filename, MySQLVisitor preMySQLVisitor) throws IOException {
-        MySQLLexer mySQLLexer = new MySQLLexer(new ANTLRFileStream(String.format("sql/%s.sql", filename)));
-        CommonTokenStream commonTokenStream = new CommonTokenStream(mySQLLexer);
-        MySQLParser mySQLParser = new MySQLParser(commonTokenStream);
         MySQLVisitor mySQLVisitor = new MySQLVisitor(MySQLVisitor.Mode.POST);
         mySQLVisitor.setTableMap(preMySQLVisitor.getTableMap());
-        mySQLVisitor.visit(mySQLParser.select_clause());
+        mySQLVisitor.visit(getSelectClauseContext(filename));
         return mySQLVisitor;
     }
 
-    private void checkTableMap(String filename) throws Exception {
-        MySQLVisitor mySQLVisitor = getMySQLVisitor(filename);
-        assertThat(CoreUtil.toJson(mySQLVisitor.getTableMap())).isEqualTo(CoreUtil.getContent(new File(String.format("json/%s.json", filename))));
-    }
-
     private void checkJava(String filename) throws Exception {
-        MySQLVisitor mySQLVisitor = getMySQLVisitor(filename);
-        MySQLVisitor postMySQLVisitor = getMySQLVisitor(filename, mySQLVisitor);
-        assertThat(postMySQLVisitor.getSource()).isEqualTo(CoreUtil.getContent(new File(String.format("java/%s.java", filename))));
+        MySQLVisitor postMySQLVisitor = getMySQLVisitor(filename, getMySQLVisitor(filename));
+        String content = CoreUtil.getContent(new File(String.format("java/%s.java", filename)));
+        assertThat(postMySQLVisitor.getSource()).isEqualTo(content);
     }
 }

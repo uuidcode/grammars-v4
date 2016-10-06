@@ -1,9 +1,0 @@
-{
-  "1": {
-    "p": {
-      "name": "project",
-      "alias": "p",
-      "type": "JOIN"
-    }
-  }
-}

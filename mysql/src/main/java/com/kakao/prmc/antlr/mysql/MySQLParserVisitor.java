@@ -17,65 +17,65 @@ public interface MySQLParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStat(MySQLParser.StatContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MySQLParser#schema_name}.
+	 * Visit a parse tree produced by {@link MySQLParser#schemaName}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSchema_name(MySQLParser.Schema_nameContext ctx);
+	T visitSchemaName(MySQLParser.SchemaNameContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MySQLParser#select_clause}.
+	 * Visit a parse tree produced by {@link MySQLParser#selectClause}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSelect_clause(MySQLParser.Select_clauseContext ctx);
+	T visitSelectClause(MySQLParser.SelectClauseContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MySQLParser#asc_desc}.
+	 * Visit a parse tree produced by {@link MySQLParser#ascDesc}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAsc_desc(MySQLParser.Asc_descContext ctx);
+	T visitAscDesc(MySQLParser.AscDescContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MySQLParser#groupBy_clause}.
+	 * Visit a parse tree produced by {@link MySQLParser#groupByClause}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitGroupBy_clause(MySQLParser.GroupBy_clauseContext ctx);
+	T visitGroupByClause(MySQLParser.GroupByClauseContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MySQLParser#groupBy_item}.
+	 * Visit a parse tree produced by {@link MySQLParser#groupByItem}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitGroupBy_item(MySQLParser.GroupBy_itemContext ctx);
+	T visitGroupByItem(MySQLParser.GroupByItemContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MySQLParser#orderBy_clause}.
+	 * Visit a parse tree produced by {@link MySQLParser#orderByClause}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitOrderBy_clause(MySQLParser.OrderBy_clauseContext ctx);
+	T visitOrderByClause(MySQLParser.OrderByClauseContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MySQLParser#orderBy_item}.
+	 * Visit a parse tree produced by {@link MySQLParser#orderByItem}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitOrderBy_item(MySQLParser.OrderBy_itemContext ctx);
+	T visitOrderByItem(MySQLParser.OrderByItemContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MySQLParser#table_name}.
+	 * Visit a parse tree produced by {@link MySQLParser#tableName}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitTable_name(MySQLParser.Table_nameContext ctx);
+	T visitTableName(MySQLParser.TableNameContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MySQLParser#table_alias}.
+	 * Visit a parse tree produced by {@link MySQLParser#tableAlias}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitTable_alias(MySQLParser.Table_aliasContext ctx);
+	T visitTableAlias(MySQLParser.TableAliasContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MySQLParser#column_name}.
+	 * Visit a parse tree produced by {@link MySQLParser#columnName}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitColumn_name(MySQLParser.Column_nameContext ctx);
+	T visitColumnName(MySQLParser.ColumnNameContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MySQLParser#function}.
 	 * @param ctx the parse tree
@@ -83,53 +83,53 @@ public interface MySQLParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFunction(MySQLParser.FunctionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MySQLParser#function_parameter}.
+	 * Visit a parse tree produced by {@link MySQLParser#functionParameter}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFunction_parameter(MySQLParser.Function_parameterContext ctx);
+	T visitFunctionParameter(MySQLParser.FunctionParameterContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MySQLParser#column_name_alias}.
+	 * Visit a parse tree produced by {@link MySQLParser#columnNameAlias}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitColumn_name_alias(MySQLParser.Column_name_aliasContext ctx);
+	T visitColumnNameAlias(MySQLParser.ColumnNameAliasContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MySQLParser#index_name}.
+	 * Visit a parse tree produced by {@link MySQLParser#indexName}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitIndex_name(MySQLParser.Index_nameContext ctx);
+	T visitIndexName(MySQLParser.IndexNameContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MySQLParser#column_list}.
+	 * Visit a parse tree produced by {@link MySQLParser#columnList}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitColumn_list(MySQLParser.Column_listContext ctx);
+	T visitColumnList(MySQLParser.ColumnListContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MySQLParser#column_list_clause}.
+	 * Visit a parse tree produced by {@link MySQLParser#columnListClause}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitColumn_list_clause(MySQLParser.Column_list_clauseContext ctx);
+	T visitColumnListClause(MySQLParser.ColumnListClauseContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MySQLParser#from_clause}.
+	 * Visit a parse tree produced by {@link MySQLParser#fromClause}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFrom_clause(MySQLParser.From_clauseContext ctx);
+	T visitFromClause(MySQLParser.FromClauseContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MySQLParser#select_key}.
+	 * Visit a parse tree produced by {@link MySQLParser#selectKey}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSelect_key(MySQLParser.Select_keyContext ctx);
+	T visitSelectKey(MySQLParser.SelectKeyContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MySQLParser#where_clause}.
+	 * Visit a parse tree produced by {@link MySQLParser#whereClause}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitWhere_clause(MySQLParser.Where_clauseContext ctx);
+	T visitWhereClause(MySQLParser.WhereClauseContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MySQLParser#expression}.
 	 * @param ctx the parse tree
@@ -143,149 +143,149 @@ public interface MySQLParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitElement(MySQLParser.ElementContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MySQLParser#right_element}.
+	 * Visit a parse tree produced by {@link MySQLParser#rightElement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitRight_element(MySQLParser.Right_elementContext ctx);
+	T visitRightElement(MySQLParser.RightElementContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MySQLParser#left_element}.
+	 * Visit a parse tree produced by {@link MySQLParser#leftElement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitLeft_element(MySQLParser.Left_elementContext ctx);
+	T visitLeftElement(MySQLParser.LeftElementContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MySQLParser#target_element}.
+	 * Visit a parse tree produced by {@link MySQLParser#targetElement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitTarget_element(MySQLParser.Target_elementContext ctx);
+	T visitTargetElement(MySQLParser.TargetElementContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MySQLParser#relational_op}.
+	 * Visit a parse tree produced by {@link MySQLParser#relationalOp}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitRelational_op(MySQLParser.Relational_opContext ctx);
+	T visitRelationalOp(MySQLParser.RelationalOpContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MySQLParser#expr_op}.
+	 * Visit a parse tree produced by {@link MySQLParser#exprOp}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExpr_op(MySQLParser.Expr_opContext ctx);
+	T visitExprOp(MySQLParser.ExprOpContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MySQLParser#between_op}.
+	 * Visit a parse tree produced by {@link MySQLParser#betweenOp}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitBetween_op(MySQLParser.Between_opContext ctx);
+	T visitBetweenOp(MySQLParser.BetweenOpContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MySQLParser#is_or_is_not}.
+	 * Visit a parse tree produced by {@link MySQLParser#isOrIsNot}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitIs_or_is_not(MySQLParser.Is_or_is_notContext ctx);
+	T visitIsOrIsNot(MySQLParser.IsOrIsNotContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MySQLParser#simple_expression}.
+	 * Visit a parse tree produced by {@link MySQLParser#simpleExpression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSimple_expression(MySQLParser.Simple_expressionContext ctx);
+	T visitSimpleExpression(MySQLParser.SimpleExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MySQLParser#in_clause}.
+	 * Visit a parse tree produced by {@link MySQLParser#inClause}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitIn_clause(MySQLParser.In_clauseContext ctx);
+	T visitInClause(MySQLParser.InClauseContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MySQLParser#table_references}.
+	 * Visit a parse tree produced by {@link MySQLParser#tableReferences}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitTable_references(MySQLParser.Table_referencesContext ctx);
+	T visitTableReferences(MySQLParser.TableReferencesContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MySQLParser#table_reference}.
+	 * Visit a parse tree produced by {@link MySQLParser#tableReference}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitTable_reference(MySQLParser.Table_referenceContext ctx);
+	T visitTableReference(MySQLParser.TableReferenceContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MySQLParser#table_factor4}.
+	 * Visit a parse tree produced by {@link MySQLParser#tableFactor4}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitTable_factor4(MySQLParser.Table_factor4Context ctx);
+	T visitTableFactor4(MySQLParser.TableFactor4Context ctx);
 	/**
-	 * Visit a parse tree produced by {@link MySQLParser#leftjoin_table_atom}.
+	 * Visit a parse tree produced by {@link MySQLParser#leftjoinTableAtom}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitLeftjoin_table_atom(MySQLParser.Leftjoin_table_atomContext ctx);
+	T visitLeftjoinTableAtom(MySQLParser.LeftjoinTableAtomContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MySQLParser#table_atom}.
+	 * Visit a parse tree produced by {@link MySQLParser#tableAtom}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitTable_atom(MySQLParser.Table_atomContext ctx);
+	T visitTableAtom(MySQLParser.TableAtomContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MySQLParser#join_clause}.
+	 * Visit a parse tree produced by {@link MySQLParser#joinClause}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitJoin_clause(MySQLParser.Join_clauseContext ctx);
+	T visitJoinClause(MySQLParser.JoinClauseContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MySQLParser#join_condition}.
+	 * Visit a parse tree produced by {@link MySQLParser#joinCondition}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitJoin_condition(MySQLParser.Join_conditionContext ctx);
+	T visitJoinCondition(MySQLParser.JoinConditionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MySQLParser#index_hint_list}.
+	 * Visit a parse tree produced by {@link MySQLParser#indexHintList}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitIndex_hint_list(MySQLParser.Index_hint_listContext ctx);
+	T visitIndexHintList(MySQLParser.IndexHintListContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MySQLParser#index_options}.
+	 * Visit a parse tree produced by {@link MySQLParser#indexOptions}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitIndex_options(MySQLParser.Index_optionsContext ctx);
+	T visitIndexOptions(MySQLParser.IndexOptionsContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MySQLParser#index_hint}.
+	 * Visit a parse tree produced by {@link MySQLParser#indexHint}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitIndex_hint(MySQLParser.Index_hintContext ctx);
+	T visitIndexHint(MySQLParser.IndexHintContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MySQLParser#index_list}.
+	 * Visit a parse tree produced by {@link MySQLParser#indexList}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitIndex_list(MySQLParser.Index_listContext ctx);
+	T visitIndexList(MySQLParser.IndexListContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MySQLParser#partition_clause}.
+	 * Visit a parse tree produced by {@link MySQLParser#partitionClause}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitPartition_clause(MySQLParser.Partition_clauseContext ctx);
+	T visitPartitionClause(MySQLParser.PartitionClauseContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MySQLParser#partition_names}.
+	 * Visit a parse tree produced by {@link MySQLParser#partitionNames}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitPartition_names(MySQLParser.Partition_namesContext ctx);
+	T visitPartitionNames(MySQLParser.PartitionNamesContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MySQLParser#partition_name}.
+	 * Visit a parse tree produced by {@link MySQLParser#partitionName}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitPartition_name(MySQLParser.Partition_nameContext ctx);
+	T visitPartitionName(MySQLParser.PartitionNameContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link MySQLParser#subquery_alias}.
+	 * Visit a parse tree produced by {@link MySQLParser#subqueryAlias}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSubquery_alias(MySQLParser.Subquery_aliasContext ctx);
+	T visitSubqueryAlias(MySQLParser.SubqueryAliasContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link MySQLParser#subquery}.
 	 * @param ctx the parse tree

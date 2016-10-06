@@ -24,70 +24,70 @@ public class MySQLParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> imple
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitSchema_name(MySQLParser.Schema_nameContext ctx) { return visitChildren(ctx); }
+	@Override public T visitSchemaName(MySQLParser.SchemaNameContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitSelect_clause(MySQLParser.Select_clauseContext ctx) { return visitChildren(ctx); }
+	@Override public T visitSelectClause(MySQLParser.SelectClauseContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitAsc_desc(MySQLParser.Asc_descContext ctx) { return visitChildren(ctx); }
+	@Override public T visitAscDesc(MySQLParser.AscDescContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitGroupBy_clause(MySQLParser.GroupBy_clauseContext ctx) { return visitChildren(ctx); }
+	@Override public T visitGroupByClause(MySQLParser.GroupByClauseContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitGroupBy_item(MySQLParser.GroupBy_itemContext ctx) { return visitChildren(ctx); }
+	@Override public T visitGroupByItem(MySQLParser.GroupByItemContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitOrderBy_clause(MySQLParser.OrderBy_clauseContext ctx) { return visitChildren(ctx); }
+	@Override public T visitOrderByClause(MySQLParser.OrderByClauseContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitOrderBy_item(MySQLParser.OrderBy_itemContext ctx) { return visitChildren(ctx); }
+	@Override public T visitOrderByItem(MySQLParser.OrderByItemContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitTable_name(MySQLParser.Table_nameContext ctx) { return visitChildren(ctx); }
+	@Override public T visitTableName(MySQLParser.TableNameContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitTable_alias(MySQLParser.Table_aliasContext ctx) { return visitChildren(ctx); }
+	@Override public T visitTableAlias(MySQLParser.TableAliasContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitColumn_name(MySQLParser.Column_nameContext ctx) { return visitChildren(ctx); }
+	@Override public T visitColumnName(MySQLParser.ColumnNameContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -101,56 +101,56 @@ public class MySQLParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> imple
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitFunction_parameter(MySQLParser.Function_parameterContext ctx) { return visitChildren(ctx); }
+	@Override public T visitFunctionParameter(MySQLParser.FunctionParameterContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitColumn_name_alias(MySQLParser.Column_name_aliasContext ctx) { return visitChildren(ctx); }
+	@Override public T visitColumnNameAlias(MySQLParser.ColumnNameAliasContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitIndex_name(MySQLParser.Index_nameContext ctx) { return visitChildren(ctx); }
+	@Override public T visitIndexName(MySQLParser.IndexNameContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitColumn_list(MySQLParser.Column_listContext ctx) { return visitChildren(ctx); }
+	@Override public T visitColumnList(MySQLParser.ColumnListContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitColumn_list_clause(MySQLParser.Column_list_clauseContext ctx) { return visitChildren(ctx); }
+	@Override public T visitColumnListClause(MySQLParser.ColumnListClauseContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitFrom_clause(MySQLParser.From_clauseContext ctx) { return visitChildren(ctx); }
+	@Override public T visitFromClause(MySQLParser.FromClauseContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitSelect_key(MySQLParser.Select_keyContext ctx) { return visitChildren(ctx); }
+	@Override public T visitSelectKey(MySQLParser.SelectKeyContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitWhere_clause(MySQLParser.Where_clauseContext ctx) { return visitChildren(ctx); }
+	@Override public T visitWhereClause(MySQLParser.WhereClauseContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -171,168 +171,168 @@ public class MySQLParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> imple
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitRight_element(MySQLParser.Right_elementContext ctx) { return visitChildren(ctx); }
+	@Override public T visitRightElement(MySQLParser.RightElementContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitLeft_element(MySQLParser.Left_elementContext ctx) { return visitChildren(ctx); }
+	@Override public T visitLeftElement(MySQLParser.LeftElementContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitTarget_element(MySQLParser.Target_elementContext ctx) { return visitChildren(ctx); }
+	@Override public T visitTargetElement(MySQLParser.TargetElementContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitRelational_op(MySQLParser.Relational_opContext ctx) { return visitChildren(ctx); }
+	@Override public T visitRelationalOp(MySQLParser.RelationalOpContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitExpr_op(MySQLParser.Expr_opContext ctx) { return visitChildren(ctx); }
+	@Override public T visitExprOp(MySQLParser.ExprOpContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitBetween_op(MySQLParser.Between_opContext ctx) { return visitChildren(ctx); }
+	@Override public T visitBetweenOp(MySQLParser.BetweenOpContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitIs_or_is_not(MySQLParser.Is_or_is_notContext ctx) { return visitChildren(ctx); }
+	@Override public T visitIsOrIsNot(MySQLParser.IsOrIsNotContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitSimple_expression(MySQLParser.Simple_expressionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitSimpleExpression(MySQLParser.SimpleExpressionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitIn_clause(MySQLParser.In_clauseContext ctx) { return visitChildren(ctx); }
+	@Override public T visitInClause(MySQLParser.InClauseContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitTable_references(MySQLParser.Table_referencesContext ctx) { return visitChildren(ctx); }
+	@Override public T visitTableReferences(MySQLParser.TableReferencesContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitTable_reference(MySQLParser.Table_referenceContext ctx) { return visitChildren(ctx); }
+	@Override public T visitTableReference(MySQLParser.TableReferenceContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitTable_factor4(MySQLParser.Table_factor4Context ctx) { return visitChildren(ctx); }
+	@Override public T visitTableFactor4(MySQLParser.TableFactor4Context ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitLeftjoin_table_atom(MySQLParser.Leftjoin_table_atomContext ctx) { return visitChildren(ctx); }
+	@Override public T visitLeftjoinTableAtom(MySQLParser.LeftjoinTableAtomContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitTable_atom(MySQLParser.Table_atomContext ctx) { return visitChildren(ctx); }
+	@Override public T visitTableAtom(MySQLParser.TableAtomContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitJoin_clause(MySQLParser.Join_clauseContext ctx) { return visitChildren(ctx); }
+	@Override public T visitJoinClause(MySQLParser.JoinClauseContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitJoin_condition(MySQLParser.Join_conditionContext ctx) { return visitChildren(ctx); }
+	@Override public T visitJoinCondition(MySQLParser.JoinConditionContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitIndex_hint_list(MySQLParser.Index_hint_listContext ctx) { return visitChildren(ctx); }
+	@Override public T visitIndexHintList(MySQLParser.IndexHintListContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitIndex_options(MySQLParser.Index_optionsContext ctx) { return visitChildren(ctx); }
+	@Override public T visitIndexOptions(MySQLParser.IndexOptionsContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitIndex_hint(MySQLParser.Index_hintContext ctx) { return visitChildren(ctx); }
+	@Override public T visitIndexHint(MySQLParser.IndexHintContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitIndex_list(MySQLParser.Index_listContext ctx) { return visitChildren(ctx); }
+	@Override public T visitIndexList(MySQLParser.IndexListContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitPartition_clause(MySQLParser.Partition_clauseContext ctx) { return visitChildren(ctx); }
+	@Override public T visitPartitionClause(MySQLParser.PartitionClauseContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitPartition_names(MySQLParser.Partition_namesContext ctx) { return visitChildren(ctx); }
+	@Override public T visitPartitionNames(MySQLParser.PartitionNamesContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitPartition_name(MySQLParser.Partition_nameContext ctx) { return visitChildren(ctx); }
+	@Override public T visitPartitionName(MySQLParser.PartitionNameContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitSubquery_alias(MySQLParser.Subquery_aliasContext ctx) { return visitChildren(ctx); }
+	@Override public T visitSubqueryAlias(MySQLParser.SubqueryAliasContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

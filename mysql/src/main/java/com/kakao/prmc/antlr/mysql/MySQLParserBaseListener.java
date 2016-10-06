@@ -28,121 +28,121 @@ public class MySQLParserBaseListener implements MySQLParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSchema_name(MySQLParser.Schema_nameContext ctx) { }
+	@Override public void enterSchemaName(MySQLParser.SchemaNameContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSchema_name(MySQLParser.Schema_nameContext ctx) { }
+	@Override public void exitSchemaName(MySQLParser.SchemaNameContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSelect_clause(MySQLParser.Select_clauseContext ctx) { }
+	@Override public void enterSelectClause(MySQLParser.SelectClauseContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSelect_clause(MySQLParser.Select_clauseContext ctx) { }
+	@Override public void exitSelectClause(MySQLParser.SelectClauseContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAsc_desc(MySQLParser.Asc_descContext ctx) { }
+	@Override public void enterAscDesc(MySQLParser.AscDescContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAsc_desc(MySQLParser.Asc_descContext ctx) { }
+	@Override public void exitAscDesc(MySQLParser.AscDescContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterGroupBy_clause(MySQLParser.GroupBy_clauseContext ctx) { }
+	@Override public void enterGroupByClause(MySQLParser.GroupByClauseContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitGroupBy_clause(MySQLParser.GroupBy_clauseContext ctx) { }
+	@Override public void exitGroupByClause(MySQLParser.GroupByClauseContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterGroupBy_item(MySQLParser.GroupBy_itemContext ctx) { }
+	@Override public void enterGroupByItem(MySQLParser.GroupByItemContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitGroupBy_item(MySQLParser.GroupBy_itemContext ctx) { }
+	@Override public void exitGroupByItem(MySQLParser.GroupByItemContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterOrderBy_clause(MySQLParser.OrderBy_clauseContext ctx) { }
+	@Override public void enterOrderByClause(MySQLParser.OrderByClauseContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitOrderBy_clause(MySQLParser.OrderBy_clauseContext ctx) { }
+	@Override public void exitOrderByClause(MySQLParser.OrderByClauseContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterOrderBy_item(MySQLParser.OrderBy_itemContext ctx) { }
+	@Override public void enterOrderByItem(MySQLParser.OrderByItemContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitOrderBy_item(MySQLParser.OrderBy_itemContext ctx) { }
+	@Override public void exitOrderByItem(MySQLParser.OrderByItemContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTable_name(MySQLParser.Table_nameContext ctx) { }
+	@Override public void enterTableName(MySQLParser.TableNameContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTable_name(MySQLParser.Table_nameContext ctx) { }
+	@Override public void exitTableName(MySQLParser.TableNameContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTable_alias(MySQLParser.Table_aliasContext ctx) { }
+	@Override public void enterTableAlias(MySQLParser.TableAliasContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTable_alias(MySQLParser.Table_aliasContext ctx) { }
+	@Override public void exitTableAlias(MySQLParser.TableAliasContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterColumn_name(MySQLParser.Column_nameContext ctx) { }
+	@Override public void enterColumnName(MySQLParser.ColumnNameContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitColumn_name(MySQLParser.Column_nameContext ctx) { }
+	@Override public void exitColumnName(MySQLParser.ColumnNameContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -160,97 +160,97 @@ public class MySQLParserBaseListener implements MySQLParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFunction_parameter(MySQLParser.Function_parameterContext ctx) { }
+	@Override public void enterFunctionParameter(MySQLParser.FunctionParameterContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFunction_parameter(MySQLParser.Function_parameterContext ctx) { }
+	@Override public void exitFunctionParameter(MySQLParser.FunctionParameterContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterColumn_name_alias(MySQLParser.Column_name_aliasContext ctx) { }
+	@Override public void enterColumnNameAlias(MySQLParser.ColumnNameAliasContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitColumn_name_alias(MySQLParser.Column_name_aliasContext ctx) { }
+	@Override public void exitColumnNameAlias(MySQLParser.ColumnNameAliasContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIndex_name(MySQLParser.Index_nameContext ctx) { }
+	@Override public void enterIndexName(MySQLParser.IndexNameContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIndex_name(MySQLParser.Index_nameContext ctx) { }
+	@Override public void exitIndexName(MySQLParser.IndexNameContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterColumn_list(MySQLParser.Column_listContext ctx) { }
+	@Override public void enterColumnList(MySQLParser.ColumnListContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitColumn_list(MySQLParser.Column_listContext ctx) { }
+	@Override public void exitColumnList(MySQLParser.ColumnListContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterColumn_list_clause(MySQLParser.Column_list_clauseContext ctx) { }
+	@Override public void enterColumnListClause(MySQLParser.ColumnListClauseContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitColumn_list_clause(MySQLParser.Column_list_clauseContext ctx) { }
+	@Override public void exitColumnListClause(MySQLParser.ColumnListClauseContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFrom_clause(MySQLParser.From_clauseContext ctx) { }
+	@Override public void enterFromClause(MySQLParser.FromClauseContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFrom_clause(MySQLParser.From_clauseContext ctx) { }
+	@Override public void exitFromClause(MySQLParser.FromClauseContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSelect_key(MySQLParser.Select_keyContext ctx) { }
+	@Override public void enterSelectKey(MySQLParser.SelectKeyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSelect_key(MySQLParser.Select_keyContext ctx) { }
+	@Override public void exitSelectKey(MySQLParser.SelectKeyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterWhere_clause(MySQLParser.Where_clauseContext ctx) { }
+	@Override public void enterWhereClause(MySQLParser.WhereClauseContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitWhere_clause(MySQLParser.Where_clauseContext ctx) { }
+	@Override public void exitWhereClause(MySQLParser.WhereClauseContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -280,289 +280,289 @@ public class MySQLParserBaseListener implements MySQLParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterRight_element(MySQLParser.Right_elementContext ctx) { }
+	@Override public void enterRightElement(MySQLParser.RightElementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitRight_element(MySQLParser.Right_elementContext ctx) { }
+	@Override public void exitRightElement(MySQLParser.RightElementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterLeft_element(MySQLParser.Left_elementContext ctx) { }
+	@Override public void enterLeftElement(MySQLParser.LeftElementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitLeft_element(MySQLParser.Left_elementContext ctx) { }
+	@Override public void exitLeftElement(MySQLParser.LeftElementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTarget_element(MySQLParser.Target_elementContext ctx) { }
+	@Override public void enterTargetElement(MySQLParser.TargetElementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTarget_element(MySQLParser.Target_elementContext ctx) { }
+	@Override public void exitTargetElement(MySQLParser.TargetElementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterRelational_op(MySQLParser.Relational_opContext ctx) { }
+	@Override public void enterRelationalOp(MySQLParser.RelationalOpContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitRelational_op(MySQLParser.Relational_opContext ctx) { }
+	@Override public void exitRelationalOp(MySQLParser.RelationalOpContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExpr_op(MySQLParser.Expr_opContext ctx) { }
+	@Override public void enterExprOp(MySQLParser.ExprOpContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExpr_op(MySQLParser.Expr_opContext ctx) { }
+	@Override public void exitExprOp(MySQLParser.ExprOpContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBetween_op(MySQLParser.Between_opContext ctx) { }
+	@Override public void enterBetweenOp(MySQLParser.BetweenOpContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBetween_op(MySQLParser.Between_opContext ctx) { }
+	@Override public void exitBetweenOp(MySQLParser.BetweenOpContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIs_or_is_not(MySQLParser.Is_or_is_notContext ctx) { }
+	@Override public void enterIsOrIsNot(MySQLParser.IsOrIsNotContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIs_or_is_not(MySQLParser.Is_or_is_notContext ctx) { }
+	@Override public void exitIsOrIsNot(MySQLParser.IsOrIsNotContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSimple_expression(MySQLParser.Simple_expressionContext ctx) { }
+	@Override public void enterSimpleExpression(MySQLParser.SimpleExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSimple_expression(MySQLParser.Simple_expressionContext ctx) { }
+	@Override public void exitSimpleExpression(MySQLParser.SimpleExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIn_clause(MySQLParser.In_clauseContext ctx) { }
+	@Override public void enterInClause(MySQLParser.InClauseContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIn_clause(MySQLParser.In_clauseContext ctx) { }
+	@Override public void exitInClause(MySQLParser.InClauseContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTable_references(MySQLParser.Table_referencesContext ctx) { }
+	@Override public void enterTableReferences(MySQLParser.TableReferencesContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTable_references(MySQLParser.Table_referencesContext ctx) { }
+	@Override public void exitTableReferences(MySQLParser.TableReferencesContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTable_reference(MySQLParser.Table_referenceContext ctx) { }
+	@Override public void enterTableReference(MySQLParser.TableReferenceContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTable_reference(MySQLParser.Table_referenceContext ctx) { }
+	@Override public void exitTableReference(MySQLParser.TableReferenceContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTable_factor4(MySQLParser.Table_factor4Context ctx) { }
+	@Override public void enterTableFactor4(MySQLParser.TableFactor4Context ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTable_factor4(MySQLParser.Table_factor4Context ctx) { }
+	@Override public void exitTableFactor4(MySQLParser.TableFactor4Context ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterLeftjoin_table_atom(MySQLParser.Leftjoin_table_atomContext ctx) { }
+	@Override public void enterLeftjoinTableAtom(MySQLParser.LeftjoinTableAtomContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitLeftjoin_table_atom(MySQLParser.Leftjoin_table_atomContext ctx) { }
+	@Override public void exitLeftjoinTableAtom(MySQLParser.LeftjoinTableAtomContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTable_atom(MySQLParser.Table_atomContext ctx) { }
+	@Override public void enterTableAtom(MySQLParser.TableAtomContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTable_atom(MySQLParser.Table_atomContext ctx) { }
+	@Override public void exitTableAtom(MySQLParser.TableAtomContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterJoin_clause(MySQLParser.Join_clauseContext ctx) { }
+	@Override public void enterJoinClause(MySQLParser.JoinClauseContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitJoin_clause(MySQLParser.Join_clauseContext ctx) { }
+	@Override public void exitJoinClause(MySQLParser.JoinClauseContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterJoin_condition(MySQLParser.Join_conditionContext ctx) { }
+	@Override public void enterJoinCondition(MySQLParser.JoinConditionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitJoin_condition(MySQLParser.Join_conditionContext ctx) { }
+	@Override public void exitJoinCondition(MySQLParser.JoinConditionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIndex_hint_list(MySQLParser.Index_hint_listContext ctx) { }
+	@Override public void enterIndexHintList(MySQLParser.IndexHintListContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIndex_hint_list(MySQLParser.Index_hint_listContext ctx) { }
+	@Override public void exitIndexHintList(MySQLParser.IndexHintListContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIndex_options(MySQLParser.Index_optionsContext ctx) { }
+	@Override public void enterIndexOptions(MySQLParser.IndexOptionsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIndex_options(MySQLParser.Index_optionsContext ctx) { }
+	@Override public void exitIndexOptions(MySQLParser.IndexOptionsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIndex_hint(MySQLParser.Index_hintContext ctx) { }
+	@Override public void enterIndexHint(MySQLParser.IndexHintContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIndex_hint(MySQLParser.Index_hintContext ctx) { }
+	@Override public void exitIndexHint(MySQLParser.IndexHintContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIndex_list(MySQLParser.Index_listContext ctx) { }
+	@Override public void enterIndexList(MySQLParser.IndexListContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIndex_list(MySQLParser.Index_listContext ctx) { }
+	@Override public void exitIndexList(MySQLParser.IndexListContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPartition_clause(MySQLParser.Partition_clauseContext ctx) { }
+	@Override public void enterPartitionClause(MySQLParser.PartitionClauseContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPartition_clause(MySQLParser.Partition_clauseContext ctx) { }
+	@Override public void exitPartitionClause(MySQLParser.PartitionClauseContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPartition_names(MySQLParser.Partition_namesContext ctx) { }
+	@Override public void enterPartitionNames(MySQLParser.PartitionNamesContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPartition_names(MySQLParser.Partition_namesContext ctx) { }
+	@Override public void exitPartitionNames(MySQLParser.PartitionNamesContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPartition_name(MySQLParser.Partition_nameContext ctx) { }
+	@Override public void enterPartitionName(MySQLParser.PartitionNameContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPartition_name(MySQLParser.Partition_nameContext ctx) { }
+	@Override public void exitPartitionName(MySQLParser.PartitionNameContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSubquery_alias(MySQLParser.Subquery_aliasContext ctx) { }
+	@Override public void enterSubqueryAlias(MySQLParser.SubqueryAliasContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSubquery_alias(MySQLParser.Subquery_aliasContext ctx) { }
+	@Override public void exitSubqueryAlias(MySQLParser.SubqueryAliasContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

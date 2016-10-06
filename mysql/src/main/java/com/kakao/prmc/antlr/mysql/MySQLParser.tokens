@@ -72,6 +72,7 @@ STRING=71
 NEWLINE=72
 WS=73
 USER_VAR=74
+STRAIGHTJOIN=75
 'select'=1
 'from'=2
 'where'=3
