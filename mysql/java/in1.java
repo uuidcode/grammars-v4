@@ -1,0 +1,15 @@
+this.queryService
+.select(
+qProjectKeyword
+)
+.from(qProjectKeyword)
+.where(qProjectKeyword.projectCount.goe(8))
+.where(qProjectKeyword.keyword.in(
+this.queryService
+.select(
+qKeywordMap.keyword1
+)
+.from(qKeywordMap)
+.where(qKeywordMap.objectType.eq("PROJECT"))
+.where(qKeywordMap.keywordType.eq("SEARCH"))
+)

@@ -21,6 +21,7 @@ public class MySQLParserTest {
         checkJava("exists1");
         checkJava("groupBy1");
         checkJava("leftJoin1");
+        checkJava("in1");
     }
 
     private MySQLParser.SelectClauseContext getSelectClauseContext(String filename) throws IOException {
@@ -45,6 +46,20 @@ public class MySQLParserTest {
     private void checkJava(String filename) throws Exception {
         MySQLVisitor postMySQLVisitor = getMySQLVisitor(filename, getMySQLVisitor(filename));
         String content = CoreUtil.getContent(new File(String.format("java/%s.java", filename)));
-        assertThat(postMySQLVisitor.getSource()).isEqualTo(content);
+        String source = postMySQLVisitor.getSource();
+        this.log("source", source);
+        assertThat(source).isEqualTo(content);
+    }
+
+    public void log(Object object) {
+        System.out.println("###" + object);
+    }
+
+    public void log(String title, Object object) {
+        log(title + ":" + CoreUtil.toJson(object));
+    }
+
+    public void log(String title, String log) {
+        log(title + ":" + log);
     }
 }

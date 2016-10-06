@@ -191,6 +191,12 @@ public interface MySQLParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSimpleExpression(MySQLParser.SimpleExpressionContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link MySQLParser#inSubquery}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitInSubquery(MySQLParser.InSubqueryContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link MySQLParser#exists}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

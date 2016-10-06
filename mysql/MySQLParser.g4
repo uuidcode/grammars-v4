@@ -46,8 +46,7 @@ tableAlias
    ;
 
 columnName
-   : ASTERISK
-   | tableAlias DOT ASTERISK
+   : ( tableAlias DOT )? ASTERISK
    | ( tableAlias DOT )? ID
    | INT
    | STRING
@@ -135,7 +134,12 @@ simpleExpression
    | exists
    | notExists
    | element IN inClause
+   | inSubquery
    ;
+
+inSubquery
+    : element IN subquery
+    ;
 
 exists
     : EXISTS subquery
