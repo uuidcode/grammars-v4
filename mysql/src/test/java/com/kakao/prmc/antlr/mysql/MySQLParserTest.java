@@ -14,14 +14,14 @@ import com.kakao.prmc.core.utility.CoreUtil;
 public class MySQLParserTest {
     @Test
     public void visit() throws Exception {
-//        checkTableMap("exists1");
-//        checkTableMap("exists2");
-//        checkTableMap("simple1");
-//        checkJava("simple1");
-//        checkJava("simple2");
-//        checkJava("simple3");
-//        checkJava("exists1");
-//        checkJava("groupBy1");
+        checkTableMap("exists1");
+        checkTableMap("exists2");
+        checkTableMap("simple1");
+        checkJava("simple1");
+        checkJava("simple2");
+        checkJava("simple3");
+        checkJava("exists1");
+        checkJava("groupBy1");
         checkJava("leftJoin1");
     }
 

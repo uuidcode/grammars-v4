@@ -16,7 +16,7 @@ import com.kakao.prmc.core.utility.CoreUtil;
 public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
     private final static String NEW_LINE = "\r\n";
     private Map<String, String> opMap = new HashMap<>();
-    private Map<Integer, Map<String, String>> tableMap = new LinkedHashMap<>();
+    private Map<Integer, Map<String, Table>> tableMap = new LinkedHashMap<>();
     private Integer queryIndex = 0;
     private List<String> list = new ArrayList<>();
     private Mode mode;
@@ -51,12 +51,12 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
         opMap.put("<", "lt");
     }
 
-    public MySQLVisitor setTableMap(Map<Integer, Map<String, String>> tableMap) {
+    public MySQLVisitor setTableMap(Map<Integer, Map<String, Table>> tableMap) {
         this.tableMap = tableMap;
         return this;
     }
 
-    public Map<Integer, Map<String, String>> getTableMap() {
+    public Map<Integer, Map<String, Table>> getTableMap() {
         return tableMap;
     }
 
@@ -130,7 +130,7 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
             columnNameContextList
                 .stream()
                 .forEach(c -> {
-                    Map<String, String> table = this.tableMap.get(this.queryIndex);
+                    Map<String, Table> table = this.tableMap.get(this.queryIndex);
                     MySQLParser.Table_aliasContext tableAliasContext = c.table_alias();
 
                     if (tableAliasContext != null) {
@@ -141,7 +141,7 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
                                     .entrySet()
                                     .stream()
                                     .filter(e -> e.getKey().equals(alias))
-                                    .map(e -> e.getValue())
+                                    .map(e -> e.getValue().getName())
                                     .map(e -> "q" + CoreUtil.getJavaClassName(e))
                                     .collect(Collectors.toList()));
                         }
@@ -151,7 +151,7 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
                                 table
                                     .entrySet()
                                     .stream()
-                                    .map(e -> e.getValue())
+                                    .map(e -> e.getValue().getName())
                                     .map(e -> "q" + CoreUtil.getJavaClassName(e))
                                     .collect(Collectors.toList()));
                         } else if (c.INT() != null) {
@@ -160,7 +160,7 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
                             columnList.add(this.getPath(c));
                         } else if (c.function() != null) {
                             if ("count".equals(c.function().ID().getText())) {
-                                String tableName = this.tableMap.get(this.queryIndex).entrySet().stream().map(e -> e.getValue()).findFirst().get();
+                                String tableName = this.tableMap.get(this.queryIndex).entrySet().stream().map(e -> e.getValue().getName()).findFirst().get();
                                 columnList.add(String.format("q%s.count()", CoreUtil.getJavaClassName(tableName)));
                             }
                         }
@@ -182,10 +182,10 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
                 .table_reference()
                 .stream()
                 .forEach(c -> {
-                    Map<String, String> map = Optional.ofNullable(this.tableMap.get(this.queryIndex)).orElse(new LinkedHashMap<>());
+                    Map<String, Table> map = Optional.ofNullable(this.tableMap.get(this.queryIndex)).orElse(new LinkedHashMap<>());
                     String tableName = c.table_atom().table_name().getText();
                     String tableAlias = Optional.ofNullable(c.table_atom().table_alias()).map(ac -> ac.getText()).orElse(tableName);
-                    map.put(tableAlias, tableName);
+                    map.put(tableAlias, new Table().setName(tableName).setAlias(tableAlias).setType(Table.Type.JOIN));
                     this.tableMap.put(this.queryIndex, map);
                     this.list.add("q" + CoreUtil.getJavaClassName(tableName));
                 });
@@ -196,7 +196,9 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
                 .get(this.queryIndex)
                 .entrySet()
                 .stream()
-                .map(entry -> entry.getValue())
+                .map(e -> e.getValue())
+                .filter(table -> table.getType() == Table.Type.JOIN)
+                .map(Table::getName)
                 .map(name -> String.format(".from(%s)", "q" + CoreUtil.getJavaClassName(name)))
                 .collect(Collectors.joining(NEW_LINE));
 
@@ -218,13 +220,17 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
             return String.format("%s", context.STRING().getText().replaceAll("'", "\""));
         }
 
-        Map<String, String> table = this.tableMap.get(this.queryIndex);
+        Map<String, Table> table = this.tableMap.get(this.queryIndex);
         MySQLParser.Table_aliasContext tableAliasContext = context.table_alias();
 
         String tableName = null;
 
         if (tableAliasContext != null) {
-            tableName = table.get(tableAliasContext.getText());
+            tableName =
+                Optional
+                    .ofNullable(table.get(tableAliasContext.getText()))
+                    .map(Table::getName)
+                    .orElse(null);
         }
 
         int currentQueryIndex = this.queryIndex;
@@ -237,7 +243,7 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
                 break;
             }
 
-            tableName = table.get(tableAliasContext.getText());
+            tableName = table.get(tableAliasContext.getText()).getName();
         }
 
         if (tableName == null) {
@@ -245,7 +251,7 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
                 this.tableMap.get(this.queryIndex)
                 .entrySet()
                 .stream()
-                .map(e -> e.getValue())
+                .map(e -> e.getValue().getName())
                 .findFirst()
                 .get();
         }
@@ -379,10 +385,10 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
 
         if (this.mode == PRE) {
             if (ctx.LEFT() != null) {
-                Map<String, String> map = Optional.ofNullable(this.tableMap.get(this.queryIndex)).orElse(new LinkedHashMap<>());
+                Map<String, Table> map = Optional.ofNullable(this.tableMap.get(this.queryIndex)).orElse(new LinkedHashMap<>());
                 String tableName = tableAtomContext.table_name().getText();
                 String tableAlias = Optional.ofNullable(tableAtomContext.table_alias()).map(a -> a.getText()).orElse(tableName);
-                map.put(tableAlias, tableName);
+                map.put(tableAlias, new Table().setName(tableName).setAlias(tableAlias).setType(Table.Type.LEFT_JOIN));
             }
         } else if (this.mode == POST) {
             if (ctx.LEFT() != null) {

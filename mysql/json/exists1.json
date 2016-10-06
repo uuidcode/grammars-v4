@@ -1,8 +1,16 @@
 {
   "1": {
-    "p": "project"
+    "p": {
+      "name": "project",
+      "alias": "p",
+      "type": "JOIN"
+    }
   },
   "2": {
-    "e": "project_episode"
+    "e": {
+      "name": "project_episode",
+      "alias": "e",
+      "type": "JOIN"
+    }
   }
 }
