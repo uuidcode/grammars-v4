@@ -4,6 +4,10 @@ parser grammar MySQLParser;
 options
    { tokenVocab = MySQLLexer; }
 
+@header {
+package com.kakao.prmc.antlr.mysql;
+}
+
 stat
    : selectClause+
    ;

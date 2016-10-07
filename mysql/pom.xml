@@ -83,13 +83,8 @@
 				<version>${antlr.version}</version>
 				<configuration>
 					<outputDirectory>${basedir}/src/main/java/com/kakao/prmc/antlr/mysql</outputDirectory>
-					<sourceDirectory>${basedir}</sourceDirectory>
 					<visitor>true</visitor>
-					<listener>true</listener>
-                    <arguments>
-                        <argument>-package</argument>
-                        <argument>com.kakao.prmc.antlr.mysql</argument>
-                    </arguments>
+					<listener>false</listener>
 				</configuration>
 				<executions>
 					<execution>

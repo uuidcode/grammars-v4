@@ -1,5 +1,7 @@
 // Generated from MySQLParser.g4 by ANTLR 4.5.3
+
 package com.kakao.prmc.antlr.mysql;
+
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**

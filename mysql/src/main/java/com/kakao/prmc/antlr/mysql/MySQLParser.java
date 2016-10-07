@@ -1,13 +1,24 @@
 // Generated from MySQLParser.g4 by ANTLR 4.5.3
+
 package com.kakao.prmc.antlr.mysql;
-import org.antlr.v4.runtime.atn.*;
-import org.antlr.v4.runtime.dfa.DFA;
-import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.misc.*;
-import org.antlr.v4.runtime.tree.*;
+
 import java.util.List;
-import java.util.Iterator;
-import java.util.ArrayList;
+
+import org.antlr.v4.runtime.NoViableAltException;
+import org.antlr.v4.runtime.Parser;
+import org.antlr.v4.runtime.ParserRuleContext;
+import org.antlr.v4.runtime.RecognitionException;
+import org.antlr.v4.runtime.RuntimeMetaData;
+import org.antlr.v4.runtime.TokenStream;
+import org.antlr.v4.runtime.Vocabulary;
+import org.antlr.v4.runtime.VocabularyImpl;
+import org.antlr.v4.runtime.atn.ATN;
+import org.antlr.v4.runtime.atn.ATNDeserializer;
+import org.antlr.v4.runtime.atn.ParserATNSimulator;
+import org.antlr.v4.runtime.atn.PredictionContextCache;
+import org.antlr.v4.runtime.dfa.DFA;
+import org.antlr.v4.runtime.tree.ParseTreeVisitor;
+import org.antlr.v4.runtime.tree.TerminalNode;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class MySQLParser extends Parser {
@@ -140,14 +151,6 @@ public class MySQLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_stat; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).enterStat(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).exitStat(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MySQLParserVisitor ) return ((MySQLParserVisitor<? extends T>)visitor).visitStat(this);
 			else return visitor.visitChildren(this);
@@ -194,14 +197,6 @@ public class MySQLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_schemaName; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).enterSchemaName(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).exitSchemaName(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MySQLParserVisitor ) return ((MySQLParserVisitor<? extends T>)visitor).visitSchemaName(this);
@@ -251,14 +246,6 @@ public class MySQLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_selectClause; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).enterSelectClause(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).exitSelectClause(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MySQLParserVisitor ) return ((MySQLParserVisitor<? extends T>)visitor).visitSelectClause(this);
@@ -334,14 +321,6 @@ public class MySQLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_ascDesc; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).enterAscDesc(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).exitAscDesc(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MySQLParserVisitor ) return ((MySQLParserVisitor<? extends T>)visitor).visitAscDesc(this);
 			else return visitor.visitChildren(this);
@@ -392,14 +371,6 @@ public class MySQLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_groupByClause; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).enterGroupByClause(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).exitGroupByClause(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MySQLParserVisitor ) return ((MySQLParserVisitor<? extends T>)visitor).visitGroupByClause(this);
@@ -465,14 +436,6 @@ public class MySQLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_groupByItem; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).enterGroupByItem(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).exitGroupByItem(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MySQLParserVisitor ) return ((MySQLParserVisitor<? extends T>)visitor).visitGroupByItem(this);
 			else return visitor.visitChildren(this);
@@ -517,14 +480,6 @@ public class MySQLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_orderByClause; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).enterOrderByClause(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).exitOrderByClause(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MySQLParserVisitor ) return ((MySQLParserVisitor<? extends T>)visitor).visitOrderByClause(this);
@@ -593,14 +548,6 @@ public class MySQLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_orderByItem; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).enterOrderByItem(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).exitOrderByItem(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MySQLParserVisitor ) return ((MySQLParserVisitor<? extends T>)visitor).visitOrderByItem(this);
 			else return visitor.visitChildren(this);
@@ -645,14 +592,6 @@ public class MySQLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_tableName; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).enterTableName(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).exitTableName(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MySQLParserVisitor ) return ((MySQLParserVisitor<? extends T>)visitor).visitTableName(this);
 			else return visitor.visitChildren(this);
@@ -686,14 +625,6 @@ public class MySQLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_tableAlias; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).enterTableAlias(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).exitTableAlias(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MySQLParserVisitor ) return ((MySQLParserVisitor<? extends T>)visitor).visitTableAlias(this);
@@ -738,14 +669,6 @@ public class MySQLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_columnName; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).enterColumnName(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).exitColumnName(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MySQLParserVisitor ) return ((MySQLParserVisitor<? extends T>)visitor).visitColumnName(this);
@@ -844,14 +767,6 @@ public class MySQLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_function; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).enterFunction(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).exitFunction(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MySQLParserVisitor ) return ((MySQLParserVisitor<? extends T>)visitor).visitFunction(this);
 			else return visitor.visitChildren(this);
@@ -900,14 +815,6 @@ public class MySQLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_functionParameter; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).enterFunctionParameter(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).exitFunctionParameter(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MySQLParserVisitor ) return ((MySQLParserVisitor<? extends T>)visitor).visitFunctionParameter(this);
@@ -960,14 +867,6 @@ public class MySQLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_columnNameAlias; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).enterColumnNameAlias(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).exitColumnNameAlias(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MySQLParserVisitor ) return ((MySQLParserVisitor<? extends T>)visitor).visitColumnNameAlias(this);
 			else return visitor.visitChildren(this);
@@ -1001,14 +900,6 @@ public class MySQLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_indexName; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).enterIndexName(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).exitIndexName(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MySQLParserVisitor ) return ((MySQLParserVisitor<? extends T>)visitor).visitIndexName(this);
@@ -1054,14 +945,6 @@ public class MySQLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_columnList; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).enterColumnList(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).exitColumnList(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MySQLParserVisitor ) return ((MySQLParserVisitor<? extends T>)visitor).visitColumnList(this);
@@ -1127,14 +1010,6 @@ public class MySQLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_columnListClause; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).enterColumnListClause(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).exitColumnListClause(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MySQLParserVisitor ) return ((MySQLParserVisitor<? extends T>)visitor).visitColumnListClause(this);
 			else return visitor.visitChildren(this);
@@ -1189,14 +1064,6 @@ public class MySQLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_fromClause; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).enterFromClause(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).exitFromClause(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MySQLParserVisitor ) return ((MySQLParserVisitor<? extends T>)visitor).visitFromClause(this);
 			else return visitor.visitChildren(this);
@@ -1232,14 +1099,6 @@ public class MySQLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_selectKey; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).enterSelectKey(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).exitSelectKey(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MySQLParserVisitor ) return ((MySQLParserVisitor<? extends T>)visitor).visitSelectKey(this);
@@ -1277,14 +1136,6 @@ public class MySQLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_whereClause; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).enterWhereClause(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).exitWhereClause(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MySQLParserVisitor ) return ((MySQLParserVisitor<? extends T>)visitor).visitWhereClause(this);
@@ -1332,14 +1183,6 @@ public class MySQLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_expression; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).enterExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).exitExpression(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MySQLParserVisitor ) return ((MySQLParserVisitor<? extends T>)visitor).visitExpression(this);
@@ -1398,14 +1241,6 @@ public class MySQLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_element; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).enterElement(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).exitElement(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MySQLParserVisitor ) return ((MySQLParserVisitor<? extends T>)visitor).visitElement(this);
 			else return visitor.visitChildren(this);
@@ -1462,14 +1297,6 @@ public class MySQLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_rightElement; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).enterRightElement(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).exitRightElement(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MySQLParserVisitor ) return ((MySQLParserVisitor<? extends T>)visitor).visitRightElement(this);
 			else return visitor.visitChildren(this);
@@ -1506,14 +1333,6 @@ public class MySQLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_leftElement; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).enterLeftElement(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).exitLeftElement(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MySQLParserVisitor ) return ((MySQLParserVisitor<? extends T>)visitor).visitLeftElement(this);
 			else return visitor.visitChildren(this);
@@ -1549,14 +1368,6 @@ public class MySQLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_targetElement; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).enterTargetElement(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).exitTargetElement(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MySQLParserVisitor ) return ((MySQLParserVisitor<? extends T>)visitor).visitTargetElement(this);
@@ -1596,14 +1407,6 @@ public class MySQLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_relationalOp; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).enterRelationalOp(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).exitRelationalOp(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MySQLParserVisitor ) return ((MySQLParserVisitor<? extends T>)visitor).visitRelationalOp(this);
@@ -1648,14 +1451,6 @@ public class MySQLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_exprOp; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).enterExprOp(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).exitExprOp(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MySQLParserVisitor ) return ((MySQLParserVisitor<? extends T>)visitor).visitExprOp(this);
 			else return visitor.visitChildren(this);
@@ -1696,14 +1491,6 @@ public class MySQLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_betweenOp; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).enterBetweenOp(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).exitBetweenOp(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MySQLParserVisitor ) return ((MySQLParserVisitor<? extends T>)visitor).visitBetweenOp(this);
 			else return visitor.visitChildren(this);
@@ -1738,14 +1525,6 @@ public class MySQLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_isOrIsNot; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).enterIsOrIsNot(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).exitIsOrIsNot(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MySQLParserVisitor ) return ((MySQLParserVisitor<? extends T>)visitor).visitIsOrIsNot(this);
@@ -1830,14 +1609,6 @@ public class MySQLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_simpleExpression; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).enterSimpleExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).exitSimpleExpression(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MySQLParserVisitor ) return ((MySQLParserVisitor<? extends T>)visitor).visitSimpleExpression(this);
@@ -1947,14 +1718,6 @@ public class MySQLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_inSubquery; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).enterInSubquery(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).exitInSubquery(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MySQLParserVisitor ) return ((MySQLParserVisitor<? extends T>)visitor).visitInSubquery(this);
 			else return visitor.visitChildren(this);
@@ -1996,14 +1759,6 @@ public class MySQLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_exists; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).enterExists(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).exitExists(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MySQLParserVisitor ) return ((MySQLParserVisitor<? extends T>)visitor).visitExists(this);
 			else return visitor.visitChildren(this);
@@ -2043,14 +1798,6 @@ public class MySQLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_notExists; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).enterNotExists(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).exitNotExists(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MySQLParserVisitor ) return ((MySQLParserVisitor<? extends T>)visitor).visitNotExists(this);
@@ -2108,14 +1855,6 @@ public class MySQLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_inClause; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).enterInClause(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).exitInClause(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MySQLParserVisitor ) return ((MySQLParserVisitor<? extends T>)visitor).visitInClause(this);
@@ -2226,14 +1965,6 @@ public class MySQLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_tableReferences; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).enterTableReferences(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).exitTableReferences(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MySQLParserVisitor ) return ((MySQLParserVisitor<? extends T>)visitor).visitTableReferences(this);
 			else return visitor.visitChildren(this);
@@ -2308,14 +2039,6 @@ public class MySQLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_tableReference; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).enterTableReference(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).exitTableReference(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MySQLParserVisitor ) return ((MySQLParserVisitor<? extends T>)visitor).visitTableReference(this);
 			else return visitor.visitChildren(this);
@@ -2359,14 +2082,6 @@ public class MySQLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_tableFactor4; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).enterTableFactor4(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).exitTableFactor4(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MySQLParserVisitor ) return ((MySQLParserVisitor<? extends T>)visitor).visitTableFactor4(this);
@@ -2441,14 +2156,6 @@ public class MySQLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_leftjoinTableAtom; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).enterLeftjoinTableAtom(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).exitLeftjoinTableAtom(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MySQLParserVisitor ) return ((MySQLParserVisitor<? extends T>)visitor).visitLeftjoinTableAtom(this);
 			else return visitor.visitChildren(this);
@@ -2518,14 +2225,6 @@ public class MySQLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_tableAtom; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).enterTableAtom(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).exitTableAtom(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MySQLParserVisitor ) return ((MySQLParserVisitor<? extends T>)visitor).visitTableAtom(this);
@@ -2663,14 +2362,6 @@ public class MySQLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_joinClause; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).enterJoinClause(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).exitJoinClause(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MySQLParserVisitor ) return ((MySQLParserVisitor<? extends T>)visitor).visitJoinClause(this);
@@ -2847,14 +2538,6 @@ public class MySQLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_joinCondition; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).enterJoinCondition(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).exitJoinCondition(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MySQLParserVisitor ) return ((MySQLParserVisitor<? extends T>)visitor).visitJoinCondition(this);
 			else return visitor.visitChildren(this);
@@ -2937,14 +2620,6 @@ public class MySQLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_indexHintList; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).enterIndexHintList(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).exitIndexHintList(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MySQLParserVisitor ) return ((MySQLParserVisitor<? extends T>)visitor).visitIndexHintList(this);
 			else return visitor.visitChildren(this);
@@ -3003,14 +2678,6 @@ public class MySQLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_indexOptions; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).enterIndexOptions(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).exitIndexOptions(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MySQLParserVisitor ) return ((MySQLParserVisitor<? extends T>)visitor).visitIndexOptions(this);
@@ -3103,14 +2770,6 @@ public class MySQLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_indexHint; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).enterIndexHint(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).exitIndexHint(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MySQLParserVisitor ) return ((MySQLParserVisitor<? extends T>)visitor).visitIndexHint(this);
 			else return visitor.visitChildren(this);
@@ -3192,14 +2851,6 @@ public class MySQLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_indexList; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).enterIndexList(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).exitIndexList(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MySQLParserVisitor ) return ((MySQLParserVisitor<? extends T>)visitor).visitIndexList(this);
 			else return visitor.visitChildren(this);
@@ -3256,14 +2907,6 @@ public class MySQLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_partitionClause; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).enterPartitionClause(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).exitPartitionClause(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MySQLParserVisitor ) return ((MySQLParserVisitor<? extends T>)visitor).visitPartitionClause(this);
 			else return visitor.visitChildren(this);
@@ -3312,14 +2955,6 @@ public class MySQLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_partitionNames; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).enterPartitionNames(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).exitPartitionNames(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MySQLParserVisitor ) return ((MySQLParserVisitor<? extends T>)visitor).visitPartitionNames(this);
@@ -3372,14 +3007,6 @@ public class MySQLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_partitionName; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).enterPartitionName(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).exitPartitionName(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MySQLParserVisitor ) return ((MySQLParserVisitor<? extends T>)visitor).visitPartitionName(this);
 			else return visitor.visitChildren(this);
@@ -3413,14 +3040,6 @@ public class MySQLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_subqueryAlias; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).enterSubqueryAlias(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).exitSubqueryAlias(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MySQLParserVisitor ) return ((MySQLParserVisitor<? extends T>)visitor).visitSubqueryAlias(this);
@@ -3462,14 +3081,6 @@ public class MySQLParser extends Parser {
 		}
 		@Override public int getRuleIndex() { return RULE_subquery; }
 		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).enterSubquery(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).exitSubquery(this);
-		}
-		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MySQLParserVisitor ) return ((MySQLParserVisitor<? extends T>)visitor).visitSubquery(this);
 			else return visitor.visitChildren(this);
@@ -3507,14 +3118,6 @@ public class MySQLParser extends Parser {
 			super(parent, invokingState);
 		}
 		@Override public int getRuleIndex() { return RULE_subqueryEnd; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).enterSubqueryEnd(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof MySQLParserListener ) ((MySQLParserListener)listener).exitSubqueryEnd(this);
-		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof MySQLParserVisitor ) return ((MySQLParserVisitor<? extends T>)visitor).visitSubqueryEnd(this);
