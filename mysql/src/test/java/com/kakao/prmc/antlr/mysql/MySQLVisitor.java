@@ -1,5 +1,6 @@
 package com.kakao.prmc.antlr.mysql;
 
+import static com.kakao.prmc.antlr.mysql.MySQLParser.*;
 import static com.kakao.prmc.antlr.mysql.MySQLVisitor.Mode.POST;
 import static com.kakao.prmc.antlr.mysql.MySQLVisitor.Mode.PRE;
 
@@ -78,7 +79,7 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
     }
 
     @Override
-    public MySQLVisitor visitSelectClause(MySQLParser.SelectClauseContext ctx) {
+    public MySQLVisitor visitSelectClause(SelectClauseContext ctx) {
         if (this.mode == POST) {
             list.add("this.queryService");
             list.add(".select(");
@@ -88,7 +89,7 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
     }
 
     @Override
-    public MySQLVisitor visitColumnListClause(MySQLParser.ColumnListClauseContext ctx) {
+    public MySQLVisitor visitColumnListClause(ColumnListClauseContext ctx) {
         List<String> columnList = new ArrayList<>();
 
         if (this.mode == POST) {
@@ -98,7 +99,7 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
                 .stream()
                 .forEach(c -> {
                     Map<String, Table> table = this.indexTableMap.get(this.queryIndex);
-                    MySQLParser.TableAliasContext tableAliasContext = c.tableAlias();
+                    TableAliasContext tableAliasContext = c.tableAlias();
 
                     if (tableAliasContext != null) {
                         String alias = tableAliasContext.getText();
@@ -142,9 +143,9 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
     }
 
     @Override
-    public MySQLVisitor visitFromClause(MySQLParser.FromClauseContext ctx) {
+    public MySQLVisitor visitFromClause(FromClauseContext ctx) {
         if (this.mode == PRE) {
-            MySQLParser.TableReferencesContext tableReferencesContext = ctx.tableReferences();
+            TableReferencesContext tableReferencesContext = ctx.tableReferences();
             tableReferencesContext
                 .tableReference()
                 .stream()
@@ -175,7 +176,7 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
         return super.visitFromClause(ctx);
     }
 
-    private String getPath(MySQLParser.ColumnNameContext context) {
+    private String getPath(ColumnNameContext context) {
         if (context.INT() != null) {
             return context.INT().getText();
         } else if (context.STRING() != null) {
@@ -183,7 +184,7 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
         }
 
         Map<String, Table> tableMap = this.indexTableMap.get(this.queryIndex);
-        MySQLParser.TableAliasContext tableAliasContext = context.tableAlias();
+        TableAliasContext tableAliasContext = context.tableAlias();
 
         String tableName = null;
 
@@ -224,7 +225,7 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
     }
 
     @Override
-    public MySQLVisitor visitWhereClause(MySQLParser.WhereClauseContext ctx) {
+    public MySQLVisitor visitWhereClause(WhereClauseContext ctx) {
         if (this.mode == POST) {
             this.processWhere(WhereType.WHERE, ctx.expression());
         }
@@ -232,7 +233,7 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
         return super.visitWhereClause(ctx);
     }
 
-    private void processWhere(WhereType whereType, MySQLParser.ExpressionContext expression) {
+    private void processWhere(WhereType whereType, ExpressionContext expression) {
         List<MySQLParser.SimpleExpressionContext> simpleExpressionContextList =
             expression.simpleExpression();
 
@@ -250,12 +251,23 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
                         this.list.add(String.format(".%s(%s.in%s)", keyword, leftPath, rightPath));
                     } else if (c.inSubquery() != null) {
 
+                    } else if (c.isOrIsNot() != null) {
+                        String targetPath = getPath(c.targetElement().element().columnName());
+                        String nullExpression = null;
+
+                        if (c.isOrIsNot().NOT() != null) {
+                            nullExpression = "isNotNull";
+                        } else {
+                            nullExpression = "isNull";
+                        }
+
+                        this.list.add(String.format(".%s(%s.%s())", keyword, targetPath, nullExpression));
                     } else {
-                        MySQLParser.LeftElementContext leftElementContext = c.leftElement();
-                        MySQLParser.ColumnNameContext leftColumn = leftElementContext.element().columnName();
+                        LeftElementContext leftElementContext = c.leftElement();
+                        ColumnNameContext leftColumn = leftElementContext.element().columnName();
 
                         if (leftColumn != null) {
-                            MySQLParser.ColumnNameContext rightColumn = c.rightElement().element().columnName();
+                            ColumnNameContext rightColumn = c.rightElement().element().columnName();
                             String leftPath = getPath(leftColumn);
                             String relationOp = this.opMap.get(c.relationalOp().getText());
                             String rightPath = getPath(rightColumn);
@@ -266,8 +278,8 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
     }
 
     @Override
-    public MySQLVisitor visitJoinClause(MySQLParser.JoinClauseContext ctx) {
-        MySQLParser.TableAtomContext tableAtomContext = ctx.leftjoinTableAtom().tableAtom();
+    public MySQLVisitor visitJoinClause(JoinClauseContext ctx) {
+        TableAtomContext tableAtomContext = ctx.leftjoinTableAtom().tableAtom();
 
         if (this.mode == PRE) {
             if (ctx.LEFT() != null) {
@@ -294,13 +306,13 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
     }
 
     @Override
-    public MySQLVisitor visitSubquery(MySQLParser.SubqueryContext ctx) {
+    public MySQLVisitor visitSubquery(SubqueryContext ctx) {
         this.queryIndex++;
         return super.visitSubquery(ctx);
     }
 
     @Override
-    public MySQLVisitor visitGroupByClause(MySQLParser.GroupByClauseContext ctx) {
+    public MySQLVisitor visitGroupByClause(GroupByClauseContext ctx) {
         String groupBy = ctx.groupByItem()
             .stream()
             .map(c -> {
@@ -313,13 +325,13 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
     }
 
     @Override
-    public MySQLVisitor visitOrderByClause(MySQLParser.OrderByClauseContext ctx) {
+    public MySQLVisitor visitOrderByClause(OrderByClauseContext ctx) {
         String orderBy =
             ctx.orderByItem()
             .stream()
             .map(c -> {
                 String path = this.getPath(c.columnName());
-                String ascDesc = Optional.ofNullable(c.ascDesc()).map(MySQLParser.AscDescContext::getText).orElse("asc");
+                String ascDesc = Optional.ofNullable(c.ascDesc()).map(i -> i.getText()).orElse("asc");
                 return String.format("%s.%s()", path, ascDesc);
             })
             .collect(Collectors.joining(","));
@@ -328,28 +340,28 @@ public class MySQLVisitor extends MySQLParserBaseVisitor<MySQLVisitor> {
     }
 
     @Override
-    public MySQLVisitor visitExists(MySQLParser.ExistsContext ctx) {
+    public MySQLVisitor visitExists(ExistsContext ctx) {
         this.subQueryType = SubQueryType.EXISTS;
         this.list.add(".where(");
         return super.visitExists(ctx);
     }
 
     @Override
-    public MySQLVisitor visitNotExists(MySQLParser.NotExistsContext ctx) {
+    public MySQLVisitor visitNotExists(NotExistsContext ctx) {
         this.subQueryType = SubQueryType.NOT_EXISTS;
         this.list.add(".where(");
         return super.visitNotExists(ctx);
     }
 
     @Override
-    public MySQLVisitor visitInSubquery(MySQLParser.InSubqueryContext ctx) {
+    public MySQLVisitor visitInSubquery(InSubqueryContext ctx) {
         this.subQueryType = SubQueryType.IN;
         this.list.add(String.format(".where(%s.in(", this.getPath(ctx.element().columnName())));
         return super.visitInSubquery(ctx);
     }
 
     @Override
-    public MySQLVisitor visitSubqueryEnd(MySQLParser.SubqueryEndContext ctx) {
+    public MySQLVisitor visitSubqueryEnd(SubqueryEndContext ctx) {
         if (this.subQueryType == SubQueryType.NOT_EXISTS) {
             this.list.add(".notExists())");
         } else if (this.subQueryType == SubQueryType.EXISTS) {

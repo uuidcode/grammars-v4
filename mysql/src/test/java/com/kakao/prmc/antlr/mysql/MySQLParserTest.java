@@ -47,7 +47,7 @@ public class MySQLParserTest {
         MySQLVisitor postMySQLVisitor = getMySQLVisitor(filename, getMySQLVisitor(filename));
         String content = CoreUtil.getContent(new File(String.format("java/%s.java", filename)));
         String source = postMySQLVisitor.getSource();
-        this.log("source", source);
+        this.log(filename, source);
         assertThat(source).isEqualTo(content);
     }
 

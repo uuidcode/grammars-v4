@@ -10,3 +10,5 @@ qProjectEpisode
 .where(qProjectEpisode.projectId.goe(qProject.projectId))
 .where(qProjectEpisode.projectId.lt(qProject.projectId))
 .where(qProjectEpisode.projectId.loe(qProject.projectId))
+.where(qProjectEpisode.projectId.isNotNull())
+.where(qProjectEpisode.projectId.isNull())
